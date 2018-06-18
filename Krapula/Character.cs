@@ -12,19 +12,19 @@ namespace Krapula
         public int Gold { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-        public List<Item> Inventory { get; set; }
+        public Item Equipped { get; set; }
+        public Clothing Clothes { get; set; }
         public int Exp { get; set; }
-        public bool Evil { get; set; }
 
-        public Character(string name, int gold, int maxHealth, List<Item> inventory, int exp, bool evil)
+        public Character(string name, int gold, int maxHealth, Item equipped, Clothing clothes, int exp)
         {
             Name = name;
             Gold = gold;
             Health = maxHealth;
             MaxHealth = maxHealth;
-            Inventory = inventory;
+            Equipped = equipped;
+            Clothes = clothes;
             Exp = exp;
-            Evil = evil;
         }
     }
 }
