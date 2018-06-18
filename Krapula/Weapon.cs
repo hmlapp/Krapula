@@ -13,23 +13,28 @@ namespace Krapula
         public int Durability { get; set; }
 
 
-        public Weapon(string name, int value, int damage, int durability) :base(name, value)
+        public Weapon(string name, int value, int damage, int durability) : base(name, value)
         {
-            
 
-            Random rnd = new Random(1 - 10);
-            Damage = rnd.Next();
-            Durability = rnd.Next();
+
+            Random rnd = new Random();
+            Damage = rnd.Next(1, 11);
+            Durability = rnd.Next(1, 11);
 
             Damage = damage;
             Durability = durability;
         }
 
-        //public void Attack()
+        //public void hit()
         //{
-        //    Console.WriteLine("Tehty vahinkoa" + Damage + "pistettä" );
+        //    Console.WriteLine("Tehty vahinkoa" + (Damage-Armor.DamageBlock + "pistettä");
+
         //}
 
-        
+        //public override int Health
+        //{
+        //    return Health - (BaseDamage? +Weapon.damage - Armor.damageBlock );
+        //}
+
     }
 }

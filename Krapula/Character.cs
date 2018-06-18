@@ -26,5 +26,9 @@ namespace Krapula
             Exp = exp;
             Evil = evil;
         }
+        //public void Equipped()
+        //{
+        //    Console.WriteLine(Item.Name+" otettu käyttöön!");
+       // }
     }
 }

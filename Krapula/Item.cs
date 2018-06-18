@@ -14,11 +14,11 @@ namespace Krapula
         public Item(string name, int value)
         {
            
-            Random r = new Random(1-1000);
-            Value = r.Next();
+            Random r = new Random();
+            Value = r.Next(1, 1000);
             Name = name;
             Value = value;
-
         }
+
     }
 }
