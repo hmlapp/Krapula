@@ -10,17 +10,16 @@ namespace Krapula
     {
         public List<Item> Inventory { get; set; }
 
-        public Player(string name, int gold, int maxHealth, Item equipped, Clothing clothes, int exp) 
-            : base(name, gold, maxHealth, equipped, clothes, exp)
+        public Player(string name) : base(name)
         {
             Inventory = new List<Item>();
             Name = name;
-            Gold = gold;
-            Health = maxHealth;
-            MaxHealth = maxHealth;
-            Equipped = equipped;
-            Clothes = clothes;
-            Exp = exp;
+            Gold = 0;
+            Health = 20;
+            MaxHealth = 20;
+            Equipped = new Weapon("Moottorisaha");
+            Clothes = new Armor("H&M Pillihuosut");
+            Exp = 0;
         }
     }
 }

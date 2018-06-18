@@ -10,7 +10,7 @@ namespace Krapula
     {
         public bool Evil { get; set; }
         
-        public Character(string name, int gold, int maxHealth, Item equipped, Clothing clothes, int exp, bool evil) : base(name, gold, maxHealth, equipped, clothes, exp)
+        public NPC(string name, int gold, int maxHealth, Item equipped, Armor clothes, int exp, bool evil) : base(name)
         {
             Name = name;
             Gold = gold;

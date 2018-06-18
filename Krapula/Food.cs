@@ -11,10 +11,10 @@ namespace Krapula
     {
         public int Health { get; set; }
 
-        public Food(string name, int value, int health) : base(name, value)
+        public Food(string name, int value, int health) : base(name)
         {
             Health = health;
-            Random food = new Random();
+            Random food = new Random(DateTime.Now.Millisecond);
             Health = food.Next(1,6);
         } 
     }

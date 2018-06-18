@@ -13,16 +13,13 @@ namespace Krapula
         public int Durability { get; set; }
 
 
-        public Weapon(string name, int value, int damage, int durability) :base(name, value)
+        public Weapon(string name) :base(name)
         {
             
 
-            Random rnd = new Random(1 - 10);
-            Damage = rnd.Next();
-            Durability = rnd.Next();
-
-            Damage = damage;
-            Durability = durability;
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            Damage = rnd.Next(1,10);
+            Durability = rnd.Next(1,10);
         }
 
         //public void Attack()

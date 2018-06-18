@@ -45,6 +45,7 @@
     <Compile Include="Area.cs" />
     <Compile Include="Armor.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Food.cs" />
