@@ -10,6 +10,17 @@ namespace Krapula
     {
         static void Main(string[] args)
         {
+            
+        }
+
+        static void Setup()
+        {
+
+        }
+
+        static void Loop()
+        {
+
         }
     }
 }
