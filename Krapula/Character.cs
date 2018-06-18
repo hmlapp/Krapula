@@ -27,5 +27,9 @@ namespace Krapula
             Clothes = new Armor("tere");
             Exp = rand.Next(0, 100);
         }
+        //public void Equipped()
+        //{
+        //    Console.WriteLine(Item.Name+" otettu käyttöön!");
+       // }
     }
 }

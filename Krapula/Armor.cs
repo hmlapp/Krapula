@@ -17,7 +17,12 @@ namespace Krapula
             DamageBlock = arm.Next(1,5);
             Style = arm.Next(1,5);
         }
+    //    public defend{
+    //    //Nostaa armorin määrän 2x 3 vuoroksi
 
-        //Vaatteiden nimiä = 
-    }
+    //return Equipped.Item.Armor.DamageBlock = Equipped.Item.Armor.DamageBlock * 2; 
+    //        Durability = 3;
+    //}
+    //Vaatteiden nimiä = 
+}
 }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Krapula
 {
-    //Nina
-    class Food: Item
+    
+    class Food : Item
     {
-        public int Health { get; set; }
-
+        public int Energy { get; set; }
+        
         public Food(string name, int value, int health) : base(name)
         {
             Health = health;
@@ -18,4 +18,25 @@ namespace Krapula
             Health = food.Next(1,6);
         } 
     }
+
+    //public void eat()
+    //{
+    //    Console.WriteLine("Ahmit " Food.Name + "ja terveytesi parani: " + Food.Energy + "verran!");
+    //}
+    //public void drink()
+    //{
+    //    Console.WriteLine("Juotuasi: " Food.Name + " ja terveytesi parani: " + Food.Energy + "verran!");
+
+
+    //}
+    //if(Health != MaxHealth){
+    //public override int Health
+    //{
+    //    return Health + Food.Energy;
+    //}
+    //if(Food.Name == "ES"){
+    //return Equipped.Item.Weapon.Damage = Equipped.Item.Weapon.Damage* 2;
+
 }
+        
+
