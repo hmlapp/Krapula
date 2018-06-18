@@ -12,19 +12,20 @@ namespace Krapula
         public int Gold { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-        public List<Item> Inventory { get; set; }
+        public Item Equipped { get; set; }
+        public Armor Clothes { get; set; }
         public int Exp { get; set; }
-        public bool Evil { get; set; }
 
-        public Character(string name, int gold, int maxHealth, List<Item> inventory, int exp, bool evil)
+        public Character(string name)
         {
+            Random rand = new Random(DateTime.Now.Millisecond);
             Name = name;
-            Gold = gold;
-            Health = maxHealth;
-            MaxHealth = maxHealth;
-            Inventory = inventory;
-            Exp = exp;
-            Evil = evil;
+            Gold = rand.Next(0,100);
+            MaxHealth = rand.Next(0, 100);
+            Health = MaxHealth;
+            Equipped = new Weapon("Moi");
+            Clothes = new Armor("tere");
+            Exp = rand.Next(0, 100);
         }
         //public void Equipped()
         //{

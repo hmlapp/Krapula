@@ -10,13 +10,13 @@ namespace Krapula
     class Food : Item
     {
         public int Energy { get; set; }
-
-        public Food(string name, int value, int energy) : base(name, value)
+        
+        public Food(string name, int value, int health) : base(name)
         {
-            Energy = energy;
-            Random food = new Random();
-            Energy = food.Next(1, 6);
-        }
+            Health = health;
+            Random food = new Random(DateTime.Now.Millisecond);
+            Health = food.Next(1,6);
+        } 
     }
 
     //public void eat()

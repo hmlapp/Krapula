@@ -7,18 +7,15 @@ using System.Threading.Tasks;
 namespace Krapula
 {
     //Riku
-    class Armor:Item
+    public class Armor:Item
     {
         public int DamageBlock { get; set; }
         public int Style { get; set; }
-        public Armor(string name, int value, int damageBlock, int style) :base(name, value)
+        public Armor(string name) :base(name)
         {
-            Random arm = new Random();
-            DamageBlock = arm.Next(1, 6);
-            Style = arm.Next(1, 3);
-
-            Style = style;
-            DamageBlock = damageBlock;
+            Random arm = new Random(DateTime.Now.Millisecond);
+            DamageBlock = arm.Next(1,5);
+            Style = arm.Next(1,5);
         }
     //    public defend{
     //    //Nostaa armorin määrän 2x 3 vuoroksi
