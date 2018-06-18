@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Krapula
 {
     //Riku
-    public class Armor:Item
+    public class Armor : Item
     {
         public int DamageBlock { get; set; }
         public int Style { get; set; }

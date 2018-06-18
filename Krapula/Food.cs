@@ -13,9 +13,9 @@ namespace Krapula
         
         public Food(string name, int value, int health) : base(name)
         {
-            Health = health;
+            Energy = health;
             Random food = new Random(DateTime.Now.Millisecond);
-            Health = food.Next(1,6);
+            Energy = food.Next(1, 6);
         } 
     }
 

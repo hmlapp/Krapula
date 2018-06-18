@@ -10,17 +10,11 @@ namespace Krapula
     {
         static void Main(string[] args)
         {
-            Game beli = new Game("stuki");
-        }
-
-        static void Setup()
-        {
-
-        }
-
-        static void Loop()
-        {
-
+            Game game = new Game("stuki");
+            while (Game.IsPlayerAlive)
+            {
+                game.Turn();
+            }
         }
     }
 }
