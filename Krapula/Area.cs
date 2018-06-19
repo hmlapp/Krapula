@@ -19,7 +19,7 @@ namespace Krapula
         public string AreaName { get; set; }
 
         // Current area NPC is a Character class
-        NPC areaNPC = new NPC("Vihainen Koodari Riikka", 20, 10, new Weapon("Smurffi"), new Armor("Nahkatakki"), 20, true);
+        public NPC AreaNPC;
 
         // New surrounding areas
         List<object> surroundingAreas = new List<object>();
@@ -37,6 +37,7 @@ namespace Krapula
             // Use area creator method to initialize surrounding areas
 
             AreaName = areaName;
+            AreaNPC = new NPC("Vihainen Koodari Riikka", 20, 10, new Weapon("Smurffi"), new Armor("Nahkatakki"), 20, true);
         }
 
 
