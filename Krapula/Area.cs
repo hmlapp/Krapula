@@ -3,28 +3,26 @@
  the player to a new area
  */
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
 namespace Krapula
 {
     class Area
     {
         // Current area name
-        public string AreaName { get; set; }
+        public string Name { get; set; }
+        // Area's character name
         public string CharacterName { get; set; }
 
         // Current area NPC is a Character class
         public NPC AreaNPC;
-
         // New surrounding areas
-        List<object> surroundingAreas = new List<object>();
+        public List<Area> surroundingAreas = new List<Area>();
+
 
         Dictionary<string, int> newArea = new Dictionary<string, int>()
         {
@@ -34,20 +32,36 @@ namespace Krapula
             {"west", 3 }
         };
 
-        public Area(string areaName)
+        public Area()
         {
             // Use area creator method to initialize surrounding areas
-
-            //AreaName = areaName;
-
-            AreaName = Utilities.NameGenerator("places", "locations");
+            
+            Name = Utilities.NameGenerator("places", "locations");
             CharacterName = Utilities.NameGenerator("adjectives", "professions", "names");
             AreaNPC = new NPC(CharacterName, 20, 10, new Weapon("Smurffi"), new Armor("Nahkatakki"), 20, true);
-            Console.WriteLine("Area: " + AreaName);
+            Console.WriteLine("Area: " + Name);
             Console.WriteLine("Char: " + CharacterName);
         }
 
-        
+        public void SetArea()
+        {
+            // Maximum possible directions of movement
+            int possibleDirections = 4;
+            for (int i = 0; i < possibleDirections; i++)
+            {
+                surroundingAreas.Add(new Area());   
+            }
+        }
+        // Overload to add previous area to the list
+        public void SetArea(Area oldArea, int direction)
+        {
+            int possibleDirections = 3;
+            for (int i = 0; i < possibleDirections; i++)
+            {
+                surroundingAreas.Add(new Area());
+            }
+            surroundingAreas.Add(oldArea);
+        }
 
 
     }
