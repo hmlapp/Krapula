@@ -24,7 +24,7 @@ namespace Krapula
         public List<Area> SurroundingAreas = new List<Area>();
 
 
-        Dictionary<string, int> newArea = new Dictionary<string, int>()
+        public Dictionary<string, int> Direction = new Dictionary<string, int>()
         {
             {"north", 0},
             {"east", 1 },
@@ -55,12 +55,18 @@ namespace Krapula
         // Overload to add previous area to the list
         public void SetArea(Area oldArea, int direction)
         {
-            int possibleDirections = 3;
+            int possibleDirections = 4;
             for (int i = 0; i < possibleDirections; i++)
             {
-                SurroundingAreas.Add(new Area());
+                if (i == direction)
+                {
+                    SurroundingAreas.Add(oldArea);
+                }
+                else
+                {
+                    SurroundingAreas.Add(new Area());
+                }
             }
-            SurroundingAreas.Add(oldArea);
         }
 
 

@@ -14,7 +14,7 @@ namespace Krapula
         public static bool IsPlayerAlive;
         public static bool IsPlayerTurn;
 
-        Dictionary<string, Func<string>> CommandList;
+        Dictionary<string, Func<string, string>> CommandList;
 
         public Game(string name)
         {
@@ -24,13 +24,14 @@ namespace Krapula
             IsPlayerAlive = true;
             IsPlayerTurn = true;
 
-            CommandList = new Dictionary<string, Func<string>>();
+            CommandList = new Dictionary<string, Func<string, string>>();
 
             CommandList.Add("go", Go);
             CommandList.Add("look", Look);
             CommandList.Add("hit", Hit);
             CommandList.Add("defend", Defend);
             CommandList.Add("run", Run);
+            CommandList.Add("take", Take);
             CommandList.Add("equip", Equip);
             CommandList.Add("inventory", Inventory);
             CommandList.Add("consume", Consume);
@@ -53,7 +54,7 @@ namespace Krapula
                 }
                 else 
                 {
-                    Console.WriteLine(CommandList[cmd[0]]());
+                    Console.WriteLine(CommandList[cmd[0]](cmd[1]));
                 }
                 
                 IsPlayerTurn = false;
@@ -77,14 +78,30 @@ namespace Krapula
             }
         }
 
-        public string Go()
+        public string Go(string direction)
         {
             // Go to new area
-            pastAreas.Add(currentArea);
-            Area temp = currentArea;
-            currentArea = currentArea.SurroundingAreas[1];
-            currentArea.SetArea(temp, 1);
-            return currentArea.Name;
+            if (currentArea.Direction.ContainsKey(direction))
+            {
+                int go = currentArea.Direction[direction];
+                pastAreas.Add(currentArea);
+                Area temp = currentArea;
+                currentArea = currentArea.SurroundingAreas[go];
+                if (go + 2 > 3)
+                {
+                    go -= 2;
+                }
+                else
+                {
+                    go += 2;
+                }
+                currentArea.SetArea(temp, go);
+                return currentArea.Name;
+            }
+            else
+            {
+                return "Not a valid direction";
+            }
         }
         public string Look()
         {
