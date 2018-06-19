@@ -27,16 +27,16 @@ namespace Krapula
             CommandList = new Dictionary<string, Func<string, string>>();
 
             CommandList.Add("go", Go);
-            CommandList.Add("look", Look);
-            CommandList.Add("hit", Hit);
-            CommandList.Add("defend", Defend);
-            CommandList.Add("run", Run);
-            CommandList.Add("take", Take);
-            CommandList.Add("equip", Equip);
-            CommandList.Add("inventory", Inventory);
-            CommandList.Add("consume", Consume);
-            CommandList.Add("buy", Buy);
-            CommandList.Add("sell", Sell);
+            //CommandList.Add("look", Look);
+            //CommandList.Add("hit", Hit);
+            //CommandList.Add("defend", Defend);
+            //CommandList.Add("run", Run);
+            //CommandList.Add("take", Take);
+            //CommandList.Add("equip", Equip);
+            //CommandList.Add("inventory", Inventory);
+            //CommandList.Add("consume", Consume);
+            //CommandList.Add("buy", Buy);
+            //CommandList.Add("sell", Sell);
         }
 
         public void Turn()
@@ -45,6 +45,7 @@ namespace Krapula
             if (IsPlayerTurn)
             {
                 Console.WriteLine(player.Health);
+                Inventory();
                 string readline = Console.ReadLine();
                 string[] cmd = readline.Split(' ');
                 if (!CommandList.ContainsKey(cmd[0]))
@@ -145,33 +146,56 @@ namespace Krapula
         {
             List<Item> foods = new List<Item>();
             List<Item> weapons = new List<Item>();
-            List<Item> drinks = new List<Item>();
             List<Item> clothes = new List<Item>();
 
-            StringBuilder items = new StringBuilder();
 
-            // Tells the player what items he/she has
-            foreach (var item in player.Inventory)
+            if (player.Inventory.Count() == 0)
             {
-                if (item.Equals(typeof(Food)))
-                {
-                    foods.Add(item);
-                }
-                else if (item.Equals(typeof(Weapon)))
-                {
-                    weapons.Add(item);
-                }
-                else if (item.Equals(typeof(Armor)))
-                {
-                    clothes.Add(item);
-                }
+                Console.WriteLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
             }
+            else
+            {
+                // Tells the player what items he/she has
+                foreach (var item in player.Inventory)
+                {
+                    if (item.GetType() == (typeof(Food)))
+                    {
+                        foods.Add(item);
+                    }
+                    else if (item.GetType() == (typeof(Weapon)))
+                    {
+                        weapons.Add(item);
+                    }
+                    else if (item.GetType() == (typeof(Armor)))
+                    {
+                        clothes.Add(item);
+                    }
+                }
 
 
-            Console.WriteLine("Takataskustasi löytyy:");
-            Console.WriteLine();
-            return items.ToString();
+                Console.WriteLine();
+                Console.WriteLine("Takataskussasi olevat ruoka-aineet:");
+                foreach (var item in foods)
+                {
+                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                }
+                Console.WriteLine();
+                Console.WriteLine("Takataskussasi olevat aseet:");
+                foreach (var item in weapons)
+                {
+                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                }
+                Console.WriteLine();
+                Console.WriteLine("Takataskussasi olevat kledjut:");
+                foreach (var item in clothes)
+                {
+                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                }
 
+
+            }   
+
+            return "jou";
         }
 
         public string Consume()
