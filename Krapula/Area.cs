@@ -21,7 +21,7 @@ namespace Krapula
         // Current area NPC is a Character class
         public NPC AreaNPC;
         // New surrounding areas
-        public List<Area> surroundingAreas = new List<Area>();
+        public List<Area> SurroundingAreas = new List<Area>();
 
 
         Dictionary<string, int> newArea = new Dictionary<string, int>()
@@ -39,8 +39,8 @@ namespace Krapula
             Name = Utilities.NameGenerator("places", "locations");
             CharacterName = Utilities.NameGenerator("adjectives", "professions", "names");
             AreaNPC = new NPC(CharacterName, 20, 10, new Weapon("Smurffi"), new Armor("Nahkatakki"), 20, true);
-            Console.WriteLine("Area: " + Name);
-            Console.WriteLine("Char: " + CharacterName);
+            //Console.WriteLine("Area: " + Name);
+            //Console.WriteLine("Char: " + CharacterName);
         }
 
         public void SetArea()
@@ -49,7 +49,7 @@ namespace Krapula
             int possibleDirections = 4;
             for (int i = 0; i < possibleDirections; i++)
             {
-                surroundingAreas.Add(new Area());   
+                SurroundingAreas.Add(new Area());   
             }
         }
         // Overload to add previous area to the list
@@ -58,9 +58,9 @@ namespace Krapula
             int possibleDirections = 3;
             for (int i = 0; i < possibleDirections; i++)
             {
-                surroundingAreas.Add(new Area());
+                SurroundingAreas.Add(new Area());
             }
-            surroundingAreas.Add(oldArea);
+            SurroundingAreas.Add(oldArea);
         }
 
 
