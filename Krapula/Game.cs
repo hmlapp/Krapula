@@ -10,6 +10,7 @@ namespace Krapula
     {
         public Player player;
         public Area currentArea;
+        public List<Area> pastAreas;
         public static bool IsPlayerAlive;
         public static bool IsPlayerTurn;
 
@@ -19,6 +20,7 @@ namespace Krapula
         {
             player = new Player(name);
             currentArea = new Area("Sörkän alepa");
+            pastAreas = new List<Area>();
             IsPlayerAlive = true;
             IsPlayerTurn = true;
 
@@ -49,7 +51,7 @@ namespace Krapula
                     Console.WriteLine("nope");
 
                 }
-                else
+                else 
                 {
                     Console.WriteLine(CommandList[cmd[0]]());
                 }
@@ -78,8 +80,11 @@ namespace Krapula
         public string Go()
         {
             // Go to new area
-            //throw new NotImplementedException();
-            return "kävit";
+            pastAreas.Add(currentArea);
+            Area temp = currentArea;
+            currentArea = currentArea.SurroundingAreas[1];
+            currentArea.SetArea(temp, 1);
+            return currentArea.Name;
         }
         public string Look()
         {
@@ -152,7 +157,17 @@ namespace Krapula
 
         public string Hit()
         {
-            throw new NotImplementedException();
+            if (currentArea.AreaNPC == null)
+            {
+                return "nothing to hit";
+            }
+            currentArea.AreaNPC.Health -= player.Equipped.Damage;
+            if (currentArea.AreaNPC.Health <= 0)
+            {
+                currentArea.AreaNPC = null;
+                return "he ded";
+            }
+            return "you hit the mörkö for " + player.Equipped.Damage + " damage";
             //Console.WriteLine("Tehty vahinkoa" + (Damage - Armor.DamageBlock + "pistettä");
 
         }
