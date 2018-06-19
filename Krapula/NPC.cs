@@ -9,23 +9,34 @@ namespace Krapula
     class NPC : Character
     {
         public bool Evil { get; set; }
+        public Random rand;
         
-        public NPC(string name, int gold, int maxHealth, Weapon equipped, Armor clothes, int exp, bool evil) : base(name)
+        public NPC() : base()
         {
-            Name = name;
-            Gold = gold;
-            Health = maxHealth;
-            MaxHealth = maxHealth;
-            WeaponEquipped = equipped;
-            ClothesEquipped = clothes;
-            Exp = exp;
-            Evil = evil;
+            rand = new Random();
+            Name = Utilities.NameGenerator("adjectives", "professions", "names");
+            Gold = rand.Next(100);
+            MaxHealth = rand.Next(30);
+            Health = MaxHealth;
+            WeaponEquipped = new Weapon();
+            ClothesEquipped = new Armor();
+            Exp = rand.Next(100);
+            Evil = true;
         }
 
         public string Attack(Player player)
         {
-            player.Health -= WeaponEquipped.Damage;
-            return Name + " hyökkäsi ja aiheutti " + WeaponEquipped.Damage + " vahinkoa";
+            int damage = rand.Next(WeaponEquipped.MaxDamage - WeaponEquipped.MinDamage);
+            damage += WeaponEquipped.MinDamage;
+            damage -= player.ClothesEquipped.DamageBlock;
+
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+
+            player.Health -= damage;
+            return Utilities.FirstCharToUpper(Name) + " hyökkäsi ja aiheutti " + damage + " vahinkoa";
         }
 
         public List<Item> Dead()

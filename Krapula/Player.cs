@@ -10,7 +10,7 @@ namespace Krapula
     {
         public List<Item> Inventory { get; set; }
 
-        public Player(string name) : base(name)
+        public Player(string name) : base()
         {
             Inventory = new List<Item>();
             Name = name;

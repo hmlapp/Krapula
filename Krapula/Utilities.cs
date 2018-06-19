@@ -47,5 +47,10 @@ namespace Krapula
             string[] lines = File.ReadAllLines(file);
             return lines[rnd.Next(lines.Length)];
         }
+
+        public static string FirstCharToUpper(string input)
+        {
+            return input.First().ToString().ToUpper() + input.Substring(1);
+        }
     }
 }

@@ -15,8 +15,8 @@ namespace Krapula
         {
             Random arm = new Random(DateTime.Now.Millisecond);
             Name = Utilities.RandomStringFrom("clothes.txt");
-            DamageBlock = arm.Next(1,5);
-            Style = arm.Next(1,5);
+            DamageBlock = arm.Next(5);
+            Style = arm.Next(10);
         }
     }
 }
