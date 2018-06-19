@@ -18,25 +18,6 @@ namespace Krapula
             Energy = food.Next(1, 6);
         } 
     }
-
-    //public void eat()
-    //{
-    //    Console.WriteLine("Ahmit " Food.Name + "ja terveytesi parani: " + Food.Energy + "verran!");
-    //}
-    //public void drink()
-    //{
-    //    Console.WriteLine("Juotuasi: " Food.Name + " ja terveytesi parani: " + Food.Energy + "verran!");
-
-
-    //}
-    //if(Health != MaxHealth){
-    //public override int Health
-    //{
-    //    return Health + Food.Energy;
-    //}
-    //if(Food.Name == "ES"){
-    //return Equipped.Item.Weapon.Damage = Equipped.Item.Weapon.Damage* 2;
-
 }
         
 
