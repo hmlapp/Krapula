@@ -26,15 +26,17 @@ namespace Krapula
             IsPlayerAlive = true;
             IsPlayerTurn = true;
 
+            Console.OutputEncoding = Encoding.UTF8;
+
             CommandList = new Dictionary<string, Func<string, string>>();
 
             CommandList.Add("go", Go);
             //CommandList.Add("look", Look);
-            //CommandList.Add("hit", Hit);
+            CommandList.Add("hit", Hit);
             //CommandList.Add("defend", Defend);
             //CommandList.Add("run", Run);
-            //CommandList.Add("take", Take);
-            //CommandList.Add("equip", Equip);
+            CommandList.Add("take", Take);
+            CommandList.Add("equip", Equip);
             //CommandList.Add("inventory", Inventory);
             //CommandList.Add("consume", Consume);
             //CommandList.Add("buy", Buy);
@@ -69,9 +71,8 @@ namespace Krapula
                     if (player.Health <= 0)
                     {
                         IsPlayerAlive = false;
+                        Console.WriteLine($"You got {player.Exp} points! Wow!");
                     }
-
-                    IsPlayerTurn = true;
                 }
 
                 IsPlayerTurn = true;
@@ -83,19 +84,19 @@ namespace Krapula
             // Go to new area
             if (currentArea.Direction.ContainsKey(direction))
             {
-                int go = currentArea.Direction[direction];
+                int dir = currentArea.Direction[direction];
                 pastAreas.Add(currentArea);
                 Area temp = currentArea;
-                currentArea = currentArea.SurroundingAreas[go];
-                if (go + 2 > 3)
+                currentArea = currentArea.SurroundingAreas[dir];
+                if (dir + 2 > 3)
                 {
-                    go -= 2;
+                    dir -= 2;
                 }
                 else
                 {
-                    go += 2;
+                    dir += 2;
                 }
-                currentArea.SetArea(temp, go);
+                currentArea.SetArea(temp, dir);
                 return currentArea.Name;
             }
             else
@@ -103,28 +104,35 @@ namespace Krapula
                 return "Not a valid direction";
             }
         }
-        public string Look()
+        public string Look(string item)
         {
+            if (currentArea.Direction.ContainsKey(item))
+            {
+                int dir = currentArea.Direction[item];
+                return currentArea.SurroundingAreas[dir].Name;
+            }
             // Look towards an (surrounding) area to get information on that area
             // Looking at item gives information on the item
             // Looking around at your current area tells you what you see (NPC/items/treasures...)
             // Looking at NPC gives information
             throw new NotImplementedException();
         }
-        public string Hit()
+        public string Hit(string ok)
         {
             if (currentArea.AreaNPC == null)
             {
                 return "nothing to hit";
             }
-            currentArea.AreaNPC.Health -= player.Equipped.Damage;
+            currentArea.AreaNPC.Health -= player.WeaponEquipped.Damage;
             if (currentArea.AreaNPC.Health <= 0)
             {
+                currentArea.Items = currentArea.AreaNPC.Dead();
+                player.Exp += currentArea.AreaNPC.Exp;
                 currentArea.AreaNPC = null;
-                return "he ded";
+                return "he ded and dropped his items";
             }
             IsPlayerTurn = false;
-            return "you hit the mörkö for " + player.Equipped.Damage + " damage";
+            return "you hit the mörkö for " + player.WeaponEquipped.Damage + " damage";
             //Console.WriteLine("Tehty vahinkoa" + (Damage - Armor.DamageBlock + "pistettä");
 
         }
@@ -146,14 +154,44 @@ namespace Krapula
             throw new NotImplementedException();
         }
 
-        private string Take()
+        private string Take(string name)
         {
-            throw new NotImplementedException();
+            Item match = currentArea.Items.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            if (match != null)
+            {
+                player.Inventory.Add(match);
+                return "you pick up the item";
+            }
+            else
+            {
+                return "there is no item like that";
+            }
         }
 
-        public string Equip()
+        public string Equip(string name)
         {
-            throw new NotImplementedException();
+            Item match = player.Inventory.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            Console.WriteLine(match.GetType());
+            if (match.GetType() == typeof(Weapon))
+            {
+                player.Inventory.Add(player.WeaponEquipped);
+                player.WeaponEquipped = (Weapon)match;
+                player.Inventory.Remove(match);
+
+                return "you equipped the weapon";
+            }
+            else if (match.GetType() == typeof(Armor))
+            {
+                player.Inventory.Add(player.ClothesEquipped);
+                player.ClothesEquipped = (Armor)match;
+                player.Inventory.Remove(match);
+
+                return "you equipped the armor";
+            }
+            else
+            {
+                return "That doesn't make any sense";
+            }
             //Console.WriteLine(Item.Name + " otettu käyttöön!");
         }
 
