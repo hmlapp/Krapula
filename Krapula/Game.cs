@@ -26,6 +26,15 @@ namespace Krapula
             IsPlayerAlive = true;
             IsPlayerTurn = true;
 
+            string Pl;
+            string Pl2;
+            Pl = Story.TransportationGenerator("movingaround");
+            Pl2 = Story.NPCnGenerator("seeingthings");
+            Console.WriteLine(Pl + " " + currentArea.Name);
+            Console.WriteLine();
+            Console.WriteLine(Pl2);
+            Console.WriteLine(currentArea.AreaNPC.Name);
+
             Console.OutputEncoding = Encoding.UTF8;
 
             CommandList = new Dictionary<string, Func<string, string>>();
