@@ -22,9 +22,10 @@ namespace Krapula
             Evil = evil;
         }
 
-        public void Attack(Player player)
+        public string Attack(Player player)
         {
             player.Health -= WeaponEquipped.Damage;
+            return Name + " hyökkäsi ja aiheutti " + WeaponEquipped.Damage + " vahinkoa";
         }
 
         public List<Item> Dead()

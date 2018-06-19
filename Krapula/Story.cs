@@ -24,18 +24,18 @@ namespace Krapula
         }
         
 
-        public static string TransportationGenerator(string movingaround)
+        public static string TransportationGenerator(string place)
         {
-            string path =  movingaround + ".txt";
-            return Utilities.RandomStringFrom(path).Trim();
+            string path =  "movingaround.txt";
+            return Utilities.RandomStringFrom(path).Trim() + " " + place;
         }
 
-        public static string NPCnGenerator(string seeingthings)
+        public static string NPCGenerator(string npc)
         {
           
-            string path = seeingthings + ".txt";
+            string path = "seeingthings.txt";
 
-            return Utilities.RandomStringFrom(path).Trim();
+            return Utilities.RandomStringFrom(path).Trim() + " " + npc;
         }
 
     }
