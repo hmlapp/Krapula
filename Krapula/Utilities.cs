@@ -34,7 +34,7 @@ namespace Krapula
             string path3 = names + ".txt";
 
             Random rnd = new Random(DateTime.Now.Millisecond);
-            nameString = RandomStringFrom(path1) + " " 
+            nameString = RandomStringFrom(path1).ToLower() + " " 
                 + RandomStringFrom(path2).ToLower() + " " 
                 + RandomStringFrom(path3);
 
