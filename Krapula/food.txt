@@ -13,7 +13,7 @@ whopper
 chili con carne
 risotto
 fetasalaatti
-mynthon
+mynthon-pastilli
 fazerin sininen
 jättis
 veripalttu
@@ -35,3 +35,11 @@ tikkari
 makaronilaatikko
 vaahtokarkki
 mätä omena
+kalakukko
+omenapiirakka
+lanttulaatikko
+nallekarkki
+kevätkääryle
+donitsi
+30% alennuksessa oleva leipä
+tonnikalapurkki
