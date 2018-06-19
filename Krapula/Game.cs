@@ -49,7 +49,7 @@ namespace Krapula
                     Console.WriteLine("nope");
 
                 }
-                else
+                else 
                 {
                     Console.WriteLine(CommandList[cmd[0]]());
                 }
