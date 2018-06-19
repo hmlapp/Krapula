@@ -12,8 +12,8 @@ namespace Krapula
         public int Gold { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-        public Weapon Equipped { get; set; }
-        public Armor Clothes { get; set; }
+        public Weapon WeaponEquipped { get; set; }
+        public Armor ClothesEquipped { get; set; }
         public int Exp { get; set; }
 
         public Character(string name)
@@ -23,8 +23,8 @@ namespace Krapula
             Gold = rand.Next(0,100);
             MaxHealth = rand.Next(0, 100);
             Health = MaxHealth;
-            Equipped = new Weapon("Moi");
-            Clothes = new Armor("tere");
+            WeaponEquipped = new Weapon("Moi");
+            ClothesEquipped = new Armor("tere");
             Exp = rand.Next(0, 100);
         }
     }

@@ -16,15 +16,27 @@ namespace Krapula
             Gold = gold;
             Health = maxHealth;
             MaxHealth = maxHealth;
-            Equipped = equipped;
-            Clothes = clothes;
+            WeaponEquipped = equipped;
+            ClothesEquipped = clothes;
             Exp = exp;
             Evil = evil;
         }
 
         public void Attack(Player player)
         {
-            player.Health -= Equipped.Damage;
+            player.Health -= WeaponEquipped.Damage;
+        }
+
+        public List<Item> Dead()
+        {
+            if (Health <= 0)
+            {
+                return new List<Item> { WeaponEquipped, ClothesEquipped };
+            }
+            else
+            {
+                return new List<Item>();
+            }
         }
     }
 }

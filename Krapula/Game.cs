@@ -20,23 +20,36 @@ namespace Krapula
         {
             player = new Player(name);
             currentArea = new Area();
+            currentArea.SetArea();
+            Console.WriteLine(currentArea.Name);
             pastAreas = new List<Area>();
             IsPlayerAlive = true;
             IsPlayerTurn = true;
 
+            string Pl;
+            string Pl2;
+            Pl = Story.TransportationGenerator("movingaround");
+            Pl2 = Story.NPCnGenerator("seeingthings");
+            Console.WriteLine(Pl + " " + currentArea.Name);
+            Console.WriteLine();
+            Console.WriteLine(Pl2);
+            Console.WriteLine(currentArea.AreaNPC.Name);
+
+            Console.OutputEncoding = Encoding.UTF8;
+
             CommandList = new Dictionary<string, Func<string, string>>();
 
             CommandList.Add("go", Go);
-            CommandList.Add("look", Look);
+            //CommandList.Add("look", Look);
             CommandList.Add("hit", Hit);
-            CommandList.Add("defend", Defend);
-            CommandList.Add("run", Run);
+            //CommandList.Add("defend", Defend);
+            //CommandList.Add("run", Run);
             CommandList.Add("take", Take);
             CommandList.Add("equip", Equip);
-            CommandList.Add("inventory", Inventory);
-            CommandList.Add("consume", Consume);
-            CommandList.Add("buy", Buy);
-            CommandList.Add("sell", Sell);
+            //CommandList.Add("inventory", Inventory);
+            //CommandList.Add("consume", Consume);
+            //CommandList.Add("buy", Buy);
+            //CommandList.Add("sell", Sell);
         }
 
         public void Turn()
@@ -56,8 +69,6 @@ namespace Krapula
                 {
                     Console.WriteLine(CommandList[cmd[0]](cmd[1]));
                 }
-                
-                IsPlayerTurn = false;
             }
             else
             {
@@ -69,9 +80,8 @@ namespace Krapula
                     if (player.Health <= 0)
                     {
                         IsPlayerAlive = false;
+                        Console.WriteLine($"You got {player.Exp} points! Wow!");
                     }
-
-                    IsPlayerTurn = true;
                 }
 
                 IsPlayerTurn = true;
@@ -83,19 +93,19 @@ namespace Krapula
             // Go to new area
             if (currentArea.Direction.ContainsKey(direction))
             {
-                int go = currentArea.Direction[direction];
+                int dir = currentArea.Direction[direction];
                 pastAreas.Add(currentArea);
                 Area temp = currentArea;
-                currentArea = currentArea.SurroundingAreas[go];
-                if (go + 2 > 3)
+                currentArea = currentArea.SurroundingAreas[dir];
+                if (dir + 2 > 3)
                 {
-                    go -= 2;
+                    dir -= 2;
                 }
                 else
                 {
-                    go += 2;
+                    dir += 2;
                 }
-                currentArea.SetArea(temp, go);
+                currentArea.SetArea(temp, dir);
                 return currentArea.Name;
             }
             else
@@ -103,15 +113,108 @@ namespace Krapula
                 return "Not a valid direction";
             }
         }
-        public string Look()
+        public string Look(string item)
         {
+            if (currentArea.Direction.ContainsKey(item))
+            {
+                int dir = currentArea.Direction[item];
+                return currentArea.SurroundingAreas[dir].Name;
+            }
             // Look towards an (surrounding) area to get information on that area
             // Looking at item gives information on the item
             // Looking around at your current area tells you what you see (NPC/items/treasures...)
             // Looking at NPC gives information
             throw new NotImplementedException();
         }
+        public string Hit(string ok)
+        {
+            if (currentArea.AreaNPC == null)
+            {
+                return "nothing to hit";
+            }
+            currentArea.AreaNPC.Health -= player.WeaponEquipped.Damage;
+            if (currentArea.AreaNPC.Health <= 0)
+            {
+                currentArea.Items = currentArea.AreaNPC.Dead();
+                player.Exp += currentArea.AreaNPC.Exp;
+                currentArea.AreaNPC = null;
+                return "he ded and dropped his items";
+            }
+            IsPlayerTurn = false;
+            return "you hit the mörkö for " + player.WeaponEquipped.Damage + " damage";
+            //Console.WriteLine("Tehty vahinkoa" + (Damage - Armor.DamageBlock + "pistettä");
 
+        }
+        public string Defend()
+        {
+            throw new NotImplementedException();
+            //Nostaa armorin määrän 2x 3 vuoroksi
+
+            //return Equipped.Item.Armor.DamageBlock = Equipped.Item.Armor.DamageBlock* 2; 
+            //        Durability = 3;
+        }
+        public string Run()
+        {
+            // Default return true
+            // Run away from mörkö. Back to previous area
+            // Mörkö can prevent your escape -> return false
+
+            // return true;
+            throw new NotImplementedException();
+        }
+
+        private string Take(string name)
+        {
+            Item match = currentArea.Items.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            if (match != null)
+            {
+                player.Inventory.Add(match);
+                return "you pick up the item";
+            }
+            else
+            {
+                return "there is no item like that";
+            }
+        }
+
+        public string Equip(string name)
+        {
+            Item match = player.Inventory.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            Console.WriteLine(match.GetType());
+            if (match.GetType() == typeof(Weapon))
+            {
+                player.Inventory.Add(player.WeaponEquipped);
+                player.WeaponEquipped = (Weapon)match;
+                player.Inventory.Remove(match);
+
+                return "you equipped the weapon";
+            }
+            else if (match.GetType() == typeof(Armor))
+            {
+                player.Inventory.Add(player.ClothesEquipped);
+                player.ClothesEquipped = (Armor)match;
+                player.Inventory.Remove(match);
+
+                return "you equipped the armor";
+            }
+            else
+            {
+                return "That doesn't make any sense";
+            }
+            //Console.WriteLine(Item.Name + " otettu käyttöön!");
+        }
+
+        public string Inventory()
+        {
+            // Tells the player what items he/she has
+            throw new NotImplementedException();
+
+        }
+        public string Consume()
+        {
+            //Console.WriteLine("Ahmit " Food.Name + "ja terveytesi parani: " + Food.Energy + "verran!");
+            throw new NotImplementedException();
+        }
         public string Buy()
         {
             // Buy target item
@@ -130,60 +233,6 @@ namespace Krapula
             // Add item to NPC inventory
             throw new NotImplementedException();
         }
-
-        public string Run()
-        {
-            // Default return true
-            // Run away from mörkö. Back to previous area
-            // Mörkö can prevent your escape -> return false
-
-            // return true;
-            throw new NotImplementedException();
-        }
-
-        public string Inventory()
-        {
-            List<Item> foods = new List<Item>();
-            List<Item> weapons = new List<Item>();
-            List<Item> drinks = new List<Item>();
-            List<Item> clothes = new List<Item>();
-
-            StringBuilder items = new StringBuilder();
-
-            // Tells the player what items he/she has
-            foreach (var item in player.Inventory)
-            {
-                if (item.Equals(typeof(Food)))
-                {
-                    foods.Add(item);
-                }
-                else if (item.Equals(typeof(Weapon)))
-                {
-                    weapons.Add(item);
-                }
-                else if (item.Equals(typeof(Armor)))
-                {
-                    clothes.Add(item);
-                }
-            }
-
-
-            Console.WriteLine("Takataskustasi löytyy:");
-            Console.WriteLine();
-            return items.ToString();
-
-        }
-
-        public string Consume()
-        {
-            //Console.WriteLine("Ahmit " Food.Name + "ja terveytesi parani: " + Food.Energy + "verran!");
-            throw new NotImplementedException();
-        }
-        public string Drink()
-        {
-            //Console.WriteLine("Juotuasi: " Food.Name + " ja terveytesi parani: " + Food.Energy + "verran!");
-            throw new NotImplementedException();
-        }
         //if(Health != MaxHealth){
         //public override int Health
         //{
@@ -192,41 +241,6 @@ namespace Krapula
         //if(Food.Name == "ES"){
         ////return Equipped.Item.Weapon.Damage = Equipped.Item.Weapon.Damage* 2;
 
-        public string Equip()
-        {
-            throw new NotImplementedException();
-            //Console.WriteLine(Item.Name + " otettu käyttöön!");
-        }
 
-        public string Hit()
-        {
-            if (currentArea.AreaNPC == null)
-            {
-                return "nothing to hit";
-            }
-            currentArea.AreaNPC.Health -= player.Equipped.Damage;
-            if (currentArea.AreaNPC.Health <= 0)
-            {
-                currentArea.AreaNPC = null;
-                return "he ded";
-            }
-            return "you hit the mörkö for " + player.Equipped.Damage + " damage";
-            //Console.WriteLine("Tehty vahinkoa" + (Damage - Armor.DamageBlock + "pistettä");
-
-        }
-        public string Defend()
-        {
-            throw new NotImplementedException();
-            //Nostaa armorin määrän 2x 3 vuoroksi
-
-            //return Equipped.Item.Armor.DamageBlock = Equipped.Item.Armor.DamageBlock* 2; 
-            //        Durability = 3;
-        }
-
-        public void Take(Item item)
-        {
-            player.Inventory.Add(item);
-            Console.WriteLine("Poimit eeppiset lootit ja takataskussai on nyt {0}", item);
-        }
     }
 }
