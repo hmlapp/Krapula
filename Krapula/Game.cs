@@ -206,9 +206,58 @@ namespace Krapula
 
         public string Inventory()
         {
-            // Tells the player what items he/she has
-            throw new NotImplementedException();
+            List<Item> foods = new List<Item>();
+            List<Item> weapons = new List<Item>();
+            List<Item> clothes = new List<Item>();
 
+
+            if (player.Inventory.Count() == 0)
+            {
+                Console.WriteLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
+            }
+            else
+            {
+                // Tells the player what items he/she has
+                foreach (var item in player.Inventory)
+                {
+                    if (item.GetType() == (typeof(Food)))
+                    {
+                        foods.Add(item);
+                    }
+                    else if (item.GetType() == (typeof(Weapon)))
+                    {
+                        weapons.Add(item);
+                    }
+                    else if (item.GetType() == (typeof(Armor)))
+                    {
+                        clothes.Add(item);
+                    }
+                }
+
+
+                Console.WriteLine();
+                Console.WriteLine("Takataskussasi olevat ruoka-aineet:");
+                foreach (var item in foods)
+                {
+                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                }
+                Console.WriteLine();
+                Console.WriteLine("Takataskussasi olevat aseet:");
+                foreach (var item in weapons)
+                {
+                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                }
+                Console.WriteLine();
+                Console.WriteLine("Takataskussasi olevat kledjut:");
+                foreach (var item in clothes)
+                {
+                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                }
+
+
+            }
+
+            return "jou";
         }
         public string Consume()
         {
