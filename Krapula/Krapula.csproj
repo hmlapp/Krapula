@@ -66,7 +66,9 @@
     <Content Include="locations.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="movingaround.txt" />
+    <Content Include="movingaround.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="names.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -76,7 +78,9 @@
     <Content Include="professions.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="seeingthings.txt" />
+    <Content Include="seeingthings.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="weapons.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
