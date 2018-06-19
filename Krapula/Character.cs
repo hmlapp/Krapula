@@ -12,7 +12,7 @@ namespace Krapula
         public int Gold { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-        public Item Equipped { get; set; }
+        public Weapon Equipped { get; set; }
         public Armor Clothes { get; set; }
         public int Exp { get; set; }
 
@@ -27,9 +27,5 @@ namespace Krapula
             Clothes = new Armor("tere");
             Exp = rand.Next(0, 100);
         }
-        //public void Equipped()
-        //{
-        //    Console.WriteLine(Item.Name+" otettu käyttöön!");
-       // }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Krapula
 {
     //Riku
-    class Weapon : Item
+    public class Weapon : Item
     {
         public int Damage { get; set; }
         public int Durability { get; set; }
@@ -18,17 +18,5 @@ namespace Krapula
             Damage = rnd.Next(1,10);
             Durability = rnd.Next(1,10);
         }
-
-        //public void hit()
-        //{
-        //    Console.WriteLine("Tehty vahinkoa" + (Damage-Armor.DamageBlock + "pistettä");
-
-        //}
-
-        //public override int Health
-        //{
-        //    return Health - (BaseDamage? +Weapon.damage - Armor.damageBlock );
-        //}
-
     }
 }

@@ -10,7 +10,7 @@ namespace Krapula
     {
         public bool Evil { get; set; }
         
-        public NPC(string name, int gold, int maxHealth, Item equipped, Armor clothes, int exp, bool evil) : base(name)
+        public NPC(string name, int gold, int maxHealth, Weapon equipped, Armor clothes, int exp, bool evil) : base(name)
         {
             Name = name;
             Gold = gold;
@@ -20,6 +20,11 @@ namespace Krapula
             Clothes = clothes;
             Exp = exp;
             Evil = evil;
+        }
+
+        public void Attack(Player player)
+        {
+            player.Health -= Equipped.Damage;
         }
     }
 }
