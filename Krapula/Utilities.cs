@@ -18,12 +18,9 @@ namespace Krapula
             string nameString;
             string path1 = places + ".txt";
             string path2 = nakkikiskat + ".txt";
-            
-            string[] allLinesP1 = File.ReadAllLines(path1);
-            string[] allLinesP2 = File.ReadAllLines(path2);
 
             Random rnd = new Random(DateTime.Now.Millisecond);
-            nameString = allLinesP1[rnd.Next(allLinesP1.Length)] + " " + allLinesP2[rnd.Next(allLinesP2.Length)];
+            nameString = RandomStringFrom(path1) + " " + RandomStringFrom(path2);
 
             return nameString;
         }
@@ -36,16 +33,19 @@ namespace Krapula
             string path2 = professions + ".txt";
             string path3 = names + ".txt";
 
-            string[] allLinesP1 = File.ReadAllLines(path1);
-            string[] allLinesP2 = File.ReadAllLines(path2);
-            string[] allLinesP3 = File.ReadAllLines(path3);
-
             Random rnd = new Random(DateTime.Now.Millisecond);
-            nameString = allLinesP1[rnd.Next(allLinesP1.Length)] + " " 
-                + allLinesP2[rnd.Next(allLinesP2.Length)].ToLower() + " " 
-                + allLinesP3[rnd.Next(allLinesP3.Length)];
+            nameString = RandomStringFrom(path1) + " " 
+                + RandomStringFrom(path2).ToLower() + " " 
+                + RandomStringFrom(path3);
 
             return nameString;
+        }
+
+        public static string RandomStringFrom(string file)
+        {
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            string[] lines = File.ReadAllLines(file);
+            return lines[rnd.Next(lines.Length)];
         }
     }
 }

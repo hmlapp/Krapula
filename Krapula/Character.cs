@@ -23,8 +23,8 @@ namespace Krapula
             Gold = rand.Next(0,100);
             MaxHealth = rand.Next(0, 100);
             Health = MaxHealth;
-            WeaponEquipped = new Weapon("Moi");
-            ClothesEquipped = new Armor("tere");
+            WeaponEquipped = new Weapon();
+            ClothesEquipped = new Armor();
             Exp = rand.Next(0, 100);
         }
     }

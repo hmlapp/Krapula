@@ -11,11 +11,10 @@ namespace Krapula
         public string Name { get; set; }
         public int Value { get; set; }
 
-        public Item(string name)
+        public Item()
         {
             Random r = new Random(DateTime.Now.Millisecond);
             Value = r.Next(1,1000);
-            Name = name;
         }
 
     }

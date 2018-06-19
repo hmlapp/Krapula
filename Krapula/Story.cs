@@ -9,9 +9,9 @@ namespace Krapula
 {//Nina ja Riku
     public class Story
     {
-       public void Beginning()
+       public static void Beginning()
       {
-        Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
+            Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
             System.Threading.Thread.Sleep(3000);
             Console.WriteLine("Suusi on tahmea, päähän sattuu ja jossain haisee oksennus."  );
             System.Threading.Thread.Sleep(3000);
@@ -26,39 +26,16 @@ namespace Krapula
 
         public static string TransportationGenerator(string movingaround)
         {
-            string transportationName;
-            string path1 =  movingaround+ ".txt";
-           
-          
-
-            string[] allLinesP1 = File.ReadAllLines(path1);
-            //string[] allLinesP2 = File.ReadAllLines(path2);
-          
-
-            Random rnd = new Random(DateTime.Now.Millisecond);
-            transportationName = allLinesP1[rnd.Next(allLinesP1.Length)];
-          //  npcthing= allLinesP2[rnd.Next(allLinesP2.Length)].ToLower();
-              
-
-            return transportationName;
+            string path =  movingaround + ".txt";
+            return Utilities.RandomStringFrom(path).Trim();
         }
 
         public static string NPCnGenerator(string seeingthings)
         {
           
-            string npcthing;
-            string path2 = seeingthings + ".txt";
+            string path = seeingthings + ".txt";
 
-
-            //string[] allLinesP1 = File.ReadAllLines(path1);
-            string[] allLinesP2 = File.ReadAllLines(path2);
-
-
-            Random rnd = new Random(DateTime.Now.Millisecond);
-            npcthing = allLinesP2[rnd.Next(allLinesP2.Length)];
-
-
-            return npcthing;
+            return Utilities.RandomStringFrom(path).Trim();
         }
 
     }

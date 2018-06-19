@@ -11,9 +11,10 @@ namespace Krapula
     {
         public int DamageBlock { get; set; }
         public int Style { get; set; }
-        public Armor(string name) :base(name)
+        public Armor() : base()
         {
             Random arm = new Random(DateTime.Now.Millisecond);
+            Name = Utilities.RandomStringFrom("clothes.txt");
             DamageBlock = arm.Next(1,5);
             Style = arm.Next(1,5);
         }
