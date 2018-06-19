@@ -1,10 +1,10 @@
-Löydät itsesi ja tutkit ympäristöäsi. Olet nyt
-Sammuit ja heräsit 
+Löydät itsesi ja tutkit ympäristöäsi. Olet nyt joutunut
+Sammuit ja huomaat päätyväsi
 Nousit bussiin ja päädyit 
-Hyppäsit metroon, olet nyt 
+Hyppäsit metroon, olet nyt päätynyt
 Hoipertelit eteenpäin ja päädyit 
-Hyppäsit saaristoristeilylle, nouset pois aluksesta 
-Ryömit eteenpäin  
+Hyppäsit saaristoristeilylle, päädyit aluksella
+Ryömit eteenpäin ja päädyt
 Nouset kaupunkipyörän päälle ja poljet  
 Löydät pomppukepin ja hypit eteenpäin  
 Varastat auton. Ajat  
@@ -15,7 +15,7 @@ Löydät skeittilaudan ja stylesti skeittailet
 Varastat pahaa-aavistamattoman hipsterin polkupyörän. Tsygäilet sillä  
 Olotilasi helpottaa hieman ja hyppelet eteenpäin  
 Näet helikopterin edessäsi ja pummaat kyydin  
-Hyppäät vartijan selkään. Vartija karistaa sinut kyydistä  
+Hyppäät vartijan selkään. Vartija karistaa sinut kyydistä ja päädyt
 Menetit hetkeksi tajuntasi. Näin voi käydä, kun viettää juhannusta vähän rankemmin.. Tajuat päätyneesi  
 Koputat poliisiauton ikkunaan ja pyydät kyytiä. He kyyditsevät iloisesti sinun  
 Harhailet eteenpäin. Tiedät, että olet ollut täällä aiemminkin.. kysyt vastaantulijalta paikan nimeä. Se on
@@ -26,6 +26,8 @@ Kipität varpaisillasi eteenpäin. Pysähdyt
 Hiippailet varovasti ympäriinsä. Päädyt
 Et jaksa enää. Päätät luovuttaa ja lysähdät paikoillesi. Olet uupunut ja haluat antautua, mutta saat jostain virtaa ja juokset 
 Harrikka! Vihdoinkin! Hyppäät selkään ja pärräilet
-Löydät nopeat lenkkarit ja kiskaiset ne jalkaasi. Cooperi sujuu vaivatta. 12 minuuttia juoksua ja olet
+Löydät nopeat lenkkarit ja kiskaiset ne jalkaasi. Cooperi sujuu vaivatta. 12 minuuttia juoksua ja päädyt
 Näet lukitsemattoman kolmipyöräisen. Nappaat pyörän ja sihkutat sillä
 Raahustat hitaasti
+Hypit huviksesi yhdellä jalalla. Et jaksa kauaa, koska sinulla on huono kunto. Pääset kuitenkin eteenpäin ja päädyt
+Pakko jatkaa matkaa, vaikkei huvittaisi. MEH! Lompsit eteenpäin 
