@@ -17,8 +17,8 @@ namespace Krapula
             Gold = 0;
             Health = 20;
             MaxHealth = 20;
-            WeaponEquipped = new Weapon("Moottorisaha");
-            ClothesEquipped = new Armor("H&M Pillihuosut");
+            WeaponEquipped = new Weapon();
+            ClothesEquipped = new Armor();
             Exp = 0;
         }
     }

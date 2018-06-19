@@ -39,7 +39,7 @@ namespace Krapula
             SurroundingAreas = new List<Area>();
             Name = Utilities.NameGenerator("places", "locations");
             CharacterName = Utilities.NameGenerator("adjectives", "professions", "names");
-            AreaNPC = new NPC(CharacterName, 20, 10, new Weapon("Smurffi"), new Armor("Nahkatakki"), 20, true);
+            AreaNPC = new NPC(CharacterName, 20, 10, new Weapon(), new Armor(), 20, true);
             //Console.WriteLine("Area: " + Name);
             //Console.WriteLine("Char: " + CharacterName);
         }

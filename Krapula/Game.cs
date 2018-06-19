@@ -21,19 +21,18 @@ namespace Krapula
             player = new Player(name);
             currentArea = new Area();
             currentArea.SetArea();
-            Console.WriteLine(currentArea.Name);
             pastAreas = new List<Area>();
             IsPlayerAlive = true;
             IsPlayerTurn = true;
 
-            string Pl;
-            string Pl2;
-            Pl = Story.TransportationGenerator("movingaround");
-            Pl2 = Story.NPCnGenerator("seeingthings");
+            Story.Beginning();
+            
+            string Pl = Story.TransportationGenerator("movingaround");
+            string Pl2 = Story.NPCnGenerator("seeingthings");
             Console.WriteLine(Pl + " " + currentArea.Name);
             Console.WriteLine();
-            Console.WriteLine(Pl2);
-            Console.WriteLine(currentArea.AreaNPC.Name);
+            Console.WriteLine(Pl2 + " " + currentArea.AreaNPC.Name);
+            Console.WriteLine();
 
             Console.OutputEncoding = Encoding.UTF8;
 
@@ -180,7 +179,6 @@ namespace Krapula
         public string Equip(string name)
         {
             Item match = player.Inventory.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
-            Console.WriteLine(match.GetType());
             if (match.GetType() == typeof(Weapon))
             {
                 player.Inventory.Add(player.WeaponEquipped);
@@ -201,7 +199,6 @@ namespace Krapula
             {
                 return "That doesn't make any sense";
             }
-            //Console.WriteLine(Item.Name + " otettu käyttöön!");
         }
 
         public string Inventory()
