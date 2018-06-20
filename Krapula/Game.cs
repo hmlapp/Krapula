@@ -421,7 +421,11 @@ namespace Krapula
                 // Tells the player what items he/she has
                 foreach (var item in player.Inventory)
                 {
-                    if (item.GetType() == (typeof(Food)))
+                    if (item.GetType() == null)
+                    {
+                        continue;
+                    }
+                    else if (item.GetType() == (typeof(Food)))
                     {
                         foods.Add((Food)item);
                     }
