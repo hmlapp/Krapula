@@ -28,12 +28,12 @@ namespace Krapula
             IsPlayerTurn = true;
             rand = new Random();
 
-            //Story.Beginning();
+            Story.Beginning();
 
             Console.WriteLine(Story.TransportationGenerator(currentArea.Name));
             Console.WriteLine(Story.NPCGenerator(currentArea.NPC.Name));
             Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine("Mitä teet?");
 
             Console.OutputEncoding = Encoding.UTF8;
 
@@ -47,7 +47,7 @@ namespace Krapula
             CommandList.Add("take", Take);
             CommandList.Add("equip", Equip);
             CommandList.Add("inventory", Inventory);
-            //CommandList.Add("consume", Consume);
+            CommandList.Add("consume", Consume);
             //CommandList.Add("buy", Buy);
             //CommandList.Add("sell", Sell);
             CommandList.Add("help", Help);
@@ -161,6 +161,8 @@ namespace Krapula
                     sb.AppendLine("Tämä paikka näyttää tutulta ja tunnet olevasi turvassa");
                 }
                 sb.AppendLine();
+                sb.AppendLine("Mitä teet?");
+                
                 return sb.ToString();
             }
             else
@@ -243,7 +245,7 @@ namespace Krapula
 
             int damage = rand.Next(player.WeaponEquipped.MaxDamage - player.WeaponEquipped.MinDamage);
             damage += player.WeaponEquipped.MinDamage;
-            damage -= currentArea.NPC.ClothesEquipped.DamageBlock;
+            damage -= (currentArea.NPC.ClothesEquipped.DamageBlock / 2);
             
             if (damage < 0)
             {
@@ -302,6 +304,7 @@ namespace Krapula
             if (match != null)
             {
                 player.Inventory.Add(match);
+                currentArea.Items.Remove(match);
                 return "you pick up the item";
             }
             else
@@ -401,10 +404,34 @@ namespace Krapula
             }
             return sb.ToString();
         }
-        public string Consume()
+        public string Consume(string item)
         {
-            //Console.WriteLine("Ahmit " Food.Name + "ja terveytesi parani: " + Food.Energy + "verran!");
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+            Food match = (Food)player.Inventory.Where(i => i.Name == item).FirstOrDefault();
+
+            player.Health += match.Energy;
+            if (player.Health > player.MaxHealth)
+            {
+                player.Health = player.MaxHealth;
+            }
+            player.Inventory.Remove(match);
+
+            sb.AppendLine("Ahmit " + match.Name);
+            sb.AppendLine();
+            switch ((float)player.Health / (float)player.MaxHealth)
+            {
+                case 1:
+                    sb.AppendLine("Tuntuu siltä et voisit vaikka valloittaa maailmaa"); // jotain parempaa pitäisi keksiä ;D
+                    break;
+                case float i when i < 1.0f && i >= 0.5f:
+                    sb.AppendLine("Ruoka maistui ja tunnet energiasi palautuvan"); // jotain parempaa pitäisi keksiä ;D
+                    break;
+                case float i when i < 0.5f && i > 0.0f:
+                    sb.AppendLine("Hirvee nälkä vielä..."); // jotain parempaa pitäisi keksiä ;D
+                    break;
+            }
+
+            return sb.ToString();
         }
         public string Buy()
         {
