@@ -40,7 +40,7 @@ namespace Krapula
         {
 
             Random rnd = new Random(DateTime.Now.Millisecond);
-            string[] lines = File.ReadAllLines("resources/" + file + ".txt");
+            string[] lines = File.ReadAllLines("resources/" + file + ".txt", Encoding.UTF8);
             return lines[rnd.Next(lines.Length)];
         }
 
