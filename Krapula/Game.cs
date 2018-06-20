@@ -46,7 +46,7 @@ namespace Krapula
             CommandList.Add("run", Run);
             CommandList.Add("take", Take);
             CommandList.Add("equip", Equip);
-            //CommandList.Add("inventory", Inventory);
+            CommandList.Add("inventory", Inventory);
             //CommandList.Add("consume", Consume);
             //CommandList.Add("buy", Buy);
             //CommandList.Add("sell", Sell);
@@ -117,6 +117,8 @@ namespace Krapula
                     {
                         IsPlayerAlive = false;
                         Console.WriteLine($"You got {player.Exp} points! Wow!");
+                        Story.Ending();
+                        
                     }
                 }
 
@@ -338,15 +340,23 @@ namespace Krapula
             }
         }
 
-        public string Inventory()
+        // Ville
+        public string Inventory(string ok)
         {
             List<Food> foods = new List<Food>();
             List<Weapon> weapons = new List<Weapon>();
             List<Armor> clothes = new List<Armor>();
+            StringBuilder sb = new StringBuilder();
 
+            // Add equipped items to output
+            sb.AppendLine("").AppendLine("Päälläsi olevat varusteet:");
+            sb.AppendLine(String.Format("{0, -15} {1, 15} {2 ,15} {3, 15} {4, 15} {5, 15}", "Nimi:", "Vahinko", "Kestävyys", "Vahingoensto:", "Tyylipisteet:", "Arvo:"));
+            sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.ClothesEquipped.Name, "", "", player.ClothesEquipped.DamageBlock, player.ClothesEquipped.Style, player.ClothesEquipped.Value + "€"));
+            sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.WeaponEquipped.Name,
+                player.WeaponEquipped.MinDamage.ToString() + " - " + player.WeaponEquipped.MaxDamage.ToString(), player.WeaponEquipped.Durability, "", "", ""));
             if (player.Inventory.Count() == 0)
             {
-                Console.WriteLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
+                sb.AppendLine("").AppendLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
             }
             else
             {
@@ -366,27 +376,30 @@ namespace Krapula
                         clothes.Add((Armor)item);
                     }
                 }
-                Console.WriteLine();
-                Console.WriteLine("{0, -15} {1,15} {2, 15} {3, 15}", "Kledju:", "Vahingoensto:", "Arvo:", "Tyylipisteet:");
+
+                sb.AppendLine("");
+                sb.AppendLine("Takataskussasi olevat tavarat:");
+                sb.AppendLine(String.Format("{0, -15} {1,15} {2, 15} {3, 15}", "Kledju:", "Vahingoensto:", "Tyylipisteet:", "Arvo:"));
+
                 for (int i = 0; i < clothes.Count(); i++)
                 {
-                    Console.WriteLine("{0,-15} {1,15} {2, 15} {3, 15}", clothes[i].Name, clothes[i].DamageBlock, clothes[i].Value + "€", "2");
+                    sb.AppendLine(String.Format("{0,-15} {1,15} {2, 15} {3, 15}", clothes[i].Name, clothes[i].DamageBlock, clothes[i].Style, clothes[i].Value + "€"));
                 }
-                Console.WriteLine();
-                Console.WriteLine("Takataskussasi olevat tavarat:");
-                Console.WriteLine("{0, -15} {1, 15} {2, 15}", "Ruoka:", "Energia:", "Arvo:");
+
+                sb.AppendLine("").AppendLine(String.Format("{0, -15} {1, 15} {2, 15}", "Ruoka:", "Energia:", "Arvo:"));
                 for (int i = 0; i < foods.Count(); i++)
                 {
-                    Console.WriteLine("{0,-15} {1,15} {2, 15}", foods[i].Name, foods[i].Energy, foods[i].Value + "€");
+                    sb.AppendLine(String.Format("{0,-15} {1,15} {2, 15}", foods[i].Name, foods[i].Energy, foods[i].Value + "€"));
                 }
-                Console.WriteLine();
-                Console.WriteLine("{0, -15} {1,15}", "Ase:", "Vahinko:");
+                sb.AppendLine("").AppendLine(String.Format("{0, -15} {1,15} {2, 15}", "Ase:", "Vahinko:", "Kestävyys"));
                 for (int i = 0; i < weapons.Count(); i++)
                 {
-                    Console.WriteLine("{0,-15} {1,15}", weapons[i].Name, weapons[i].MaxDamage);
+                    sb.AppendLine(String.Format("{0,-15} {1,15} {2, 15}", weapons[i].Name, weapons[i].MinDamage.ToString() + " - " + weapons[i].MaxDamage.ToString(), weapons[i].Durability));
                 }
+
+               
             }
-            return "Inventaario tehty";
+            return sb.ToString();
         }
         public string Consume()
         {
