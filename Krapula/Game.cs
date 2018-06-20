@@ -14,7 +14,8 @@ namespace Krapula
         public static bool IsPlayerAlive;
         public static bool IsPlayerTurn;
         public Random rand;
-
+        int turnsDefended;
+        
         Dictionary<string, Func<string, string>> CommandList;
 
         public Game(string name)
@@ -41,7 +42,7 @@ namespace Krapula
             CommandList.Add("go", Go);
             CommandList.Add("look", Look);
             CommandList.Add("attack", Attack);
-            //CommandList.Add("defend", Defend);
+            CommandList.Add("defend", Defend);
             CommandList.Add("run", Run);
             CommandList.Add("take", Take);
             CommandList.Add("equip", Equip);
@@ -57,6 +58,22 @@ namespace Krapula
             // Await command if it is currently the players turn
             if (IsPlayerTurn)
             {
+                if (!player.IsDefending)
+                {
+                    turnsDefended = 0;
+                }
+                else
+                {
+                    if (turnsDefended > 1)
+                    {
+                        player.IsDefending = false;
+                    }
+                    else
+                    {
+                        turnsDefended++;
+                    }
+                }
+
                 string readline = Console.ReadLine().ToLower();
                 Console.WriteLine();
                 string[] cmd = readline.Split(' ');
@@ -223,16 +240,13 @@ namespace Krapula
             }
             IsPlayerTurn = false;
             return "you hit the mörkö for " + damage + " damage";
-            //Console.WriteLine("Tehty vahinkoa" + (Damage - Armor.DamageBlock + "pistettä");
 
         }
-        public string Defend()
+        public string Defend(string ok)
         {
-            throw new NotImplementedException();
-            //Nostaa armorin määrän 2x 3 vuoroksi
-
-            //return Equipped.Item.Armor.DamageBlock = Equipped.Item.Armor.DamageBlock* 2; 
-            //        Durability = 3;
+            player.IsDefending = true;
+            IsPlayerTurn = false;
+            return "Puolustat";
         }
         public string Run(string ok)
         {
