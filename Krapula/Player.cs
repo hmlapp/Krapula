@@ -9,6 +9,7 @@ namespace Krapula
     public class Player : Character
     {
         public List<Item> Inventory { get; set; }
+        public bool IsDefending { get; set; }
 
         public Player(string name) : base()
         {
@@ -20,6 +21,7 @@ namespace Krapula
             WeaponEquipped = new Weapon();
             ClothesEquipped = new Armor();
             Exp = 0;
+            IsDefending = false;
         }
     }
 }

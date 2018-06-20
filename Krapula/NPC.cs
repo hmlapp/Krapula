@@ -28,7 +28,14 @@ namespace Krapula
         {
             int damage = rand.Next(WeaponEquipped.MaxDamage - WeaponEquipped.MinDamage);
             damage += WeaponEquipped.MinDamage;
-            damage -= player.ClothesEquipped.DamageBlock;
+            int block = player.ClothesEquipped.DamageBlock;
+
+            if (player.IsDefending)
+            {
+                block *= 2;
+            }
+
+            damage -= block;
 
             if (damage < 0)
             {
