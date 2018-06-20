@@ -10,7 +10,7 @@ namespace Krapula
     {
         static void Main(string[] args)
         {
-            Game game = new Game("stuki");
+            Game game = new Game(Story.Beginning());
             while (Game.IsPlayerAlive)
             {
                 game.Turn();

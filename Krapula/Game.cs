@@ -8,6 +8,7 @@ namespace Krapula
 {
     class Game
     {
+        public Armor armor;
         public Player player;
         public Area currentArea;
         public List<Area> pastAreas;
@@ -15,9 +16,12 @@ namespace Krapula
         public static bool IsPlayerTurn;
         public Random rand;
         int turnsDefended;
-        
-        Dictionary<string, Func<string, string>> CommandList;
+       
 
+
+
+        Dictionary<string, Func<string, string>> CommandList;
+      
         public Game(string name)
         {
             player = new Player(name);
@@ -28,6 +32,7 @@ namespace Krapula
             IsPlayerTurn = true;
             rand = new Random();
 
+            
             //Story.Beginning();
 
             Console.WriteLine(Story.TransportationGenerator(currentArea.Name));
@@ -98,7 +103,8 @@ namespace Krapula
                     {
                         IsPlayerAlive = false;
                         Console.WriteLine($"You got {player.Exp} points! Wow!");
-                        Story.Ending();
+                       // public int pisteet = player.Exp;
+                        Story.Ending(player, armor);
                         
                     }
                 }
@@ -160,13 +166,13 @@ namespace Krapula
                 switch ((float)player.Health / (float)player.MaxHealth)
                 {
                     case 1:
-                        sb.AppendLine("Voit hyvin"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Voit hyvin, superhyvin!"); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 1.0f && i >= 0.5f:
-                        sb.AppendLine("Alkaa väsyttää..."); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Alkaa väsyttää, etkä kohta enää jaksa taistella..."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 0.5f && i > 0.0f:
-                        sb.AppendLine("Hirvee morkkis..."); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Hirvee morkkis, henki tuskin kulkee..."); // jotain parempaa pitäisi keksiä ;D
                         break;
                 }
                 sb.AppendLine();
@@ -189,13 +195,13 @@ namespace Krapula
                 switch ((float)currentArea.NPC.Health / (float)currentArea.NPC.MaxHealth)
                 {
                     case 1:
-                        sb.AppendLine("Näyttää voivan hyvin"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Näyttää voivan hyvin. Perkele."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 1.0f && i >= 0.5f:
-                        sb.AppendLine("Näyttäisi siltä että hän olisi vähän väsynyt"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Mörkö alkaa selkeästi väsyä."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 0.5f && i > 0.0f:
-                        sb.AppendLine("Hän pelkää sinua"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Hän on kuolemaisillaan!"); // jotain parempaa pitäisi keksiä ;D
                         break;
                 }
 
@@ -258,7 +264,7 @@ namespace Krapula
 
             if (rand.Next() % 3 == 0)
             {
-                sb.AppendLine($"Pakenessasi {currentArea.NPC} hyökkäsi!");
+                sb.AppendLine($"Paetessasi {currentArea.NPC} hyökkäsi!");
                 sb.AppendLine(currentArea.NPC.Attack(player));
             }
 
