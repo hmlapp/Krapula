@@ -14,6 +14,7 @@ namespace Krapula
         public List<Area> pastAreas;
         public static bool IsPlayerAlive;
         public static bool IsPlayerTurn;
+        public static bool Restart;
         public Random rand;
         int turnsDefended;
        
@@ -30,6 +31,7 @@ namespace Krapula
             pastAreas = new List<Area>();
             IsPlayerAlive = true;
             IsPlayerTurn = true;
+            Restart = false;
             rand = new Random();
 
  
@@ -49,8 +51,8 @@ namespace Krapula
             CommandList.Add("puolusta", Defend);
             CommandList.Add("pakene", Run);
             CommandList.Add("ota", Take);
-            CommandList.Add("pue", Equip);
-            CommandList.Add("takataskut", Inventory);
+            CommandList.Add("käytä", Equip);
+            CommandList.Add("takatasku", Inventory);
             CommandList.Add("nauti", Consume);
             //CommandList.Add("buy", Buy);
             //CommandList.Add("sell", Sell);
@@ -131,9 +133,9 @@ namespace Krapula
                     if (player.Health <= 0)
                     {
                         IsPlayerAlive = false;
-                        Console.WriteLine($"Sait {player.Exp} pistettä! Wow!");
+                        //Console.WriteLine($"Sait {player.Exp} pistettä! Wow!");
                        // public int pisteet = player.Exp;
-                        Story.Ending(player, armor);
+                        Restart = Story.Ending(player, armor);
                         
                     }
                 }
@@ -258,7 +260,7 @@ namespace Krapula
             {
                 Console.WriteLine("Kätesi ovat aseettomat ja huomaat, ettei takataskussaikaan ole mitään taisteluun kelpaavaa!");
                 Console.WriteLine();
-                Story.Ending(player, armor);
+                Restart = Story.Ending(player, armor);
             }
             if (player.WeaponEquipped.Durability == 0)
             {

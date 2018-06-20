@@ -8,14 +8,19 @@ namespace Krapula
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Alku:
             Game game = new Game(Story.Beginning());
+
             while (Game.IsPlayerAlive)
             {
                 game.Turn();
+            }
 
+            if (Game.Restart)
+            {
+                Console.Clear();
+                Main();
             }
         }   
     }
