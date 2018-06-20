@@ -102,8 +102,8 @@ namespace Krapula
              System.Threading.Thread.Sleep(3000);
 
             Console.WriteLine("Haluatko pelata uudelleen? (Kyllä/Ei)");
-            string vastaus = Console.ReadLine().ToLower();
             Loppu:
+            string vastaus = Console.ReadLine().ToLower();      
             switch (vastaus)
             {
                 case string s when (vastaus == "kyllä" || vastaus == "yes" || vastaus == "k"):
