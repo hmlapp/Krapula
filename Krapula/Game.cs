@@ -353,7 +353,7 @@ namespace Krapula
                 Console.WriteLine("{0, -15} {1,15}", "Ase:", "Vahinko:");
                 for (int i = 0; i < weapons.Count(); i++)
                 {
-                    Console.WriteLine("{0,-15} {1,15}", weapons[i].Name, weapons[i].Damage);
+                    Console.WriteLine("{0,-15} {1,15}", weapons[i].Name, weapons[i].MaxDamage);
                 }
             }
             return "Inventaario tehty";
