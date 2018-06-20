@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -99,7 +101,19 @@ namespace Krapula
             }           
             Console.WriteLine("Tyyli- ja tappopisteet yhteensä: "+styyli);
             Console.WriteLine();
-             System.Threading.Thread.Sleep(3000);
+
+
+            using (var wb = new WebClient())
+            {
+                var data = new NameValueCollection();
+                data["score"] = styyli.ToString();
+                data["name"] = player.Name;
+
+                var response = wb.UploadValues("http://localhost:3000", "POST", data);
+                string responseInString = Encoding.UTF8.GetString(response);
+            }
+
+            System.Threading.Thread.Sleep(3000);
 
             Console.WriteLine("Haluatko pelata uudelleen? (Kyllä/Ei)");
             Loppu:
