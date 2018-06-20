@@ -43,18 +43,18 @@ namespace Krapula
 
             CommandList = new Dictionary<string, Func<string, string>>();
 
-            CommandList.Add("go", Go);
-            CommandList.Add("look", Look);
-            CommandList.Add("attack", Attack);
-            CommandList.Add("defend", Defend);
-            CommandList.Add("run", Run);
-            CommandList.Add("take", Take);
-            CommandList.Add("equip", Equip);
-            CommandList.Add("inventory", Inventory);
-            CommandList.Add("consume", Consume);
+            CommandList.Add("mene", Go);
+            CommandList.Add("katso", Look);
+            CommandList.Add("hyökkää", Attack);
+            CommandList.Add("puolusta", Defend);
+            CommandList.Add("pakene", Run);
+            CommandList.Add("ota", Take);
+            CommandList.Add("pue", Equip);
+            CommandList.Add("takataskut", Inventory);
+            CommandList.Add("nauti", Consume);
             //CommandList.Add("buy", Buy);
             //CommandList.Add("sell", Sell);
-            CommandList.Add("help", Help);
+            CommandList.Add("apua", Help);
         }
 
         public void Turn()
@@ -88,7 +88,7 @@ namespace Krapula
                     case 1:
                         if (!CommandList.ContainsKey(cmd[0]))
                         {
-                            Console.WriteLine("Not valid command. Type 'help' to get a list of available commands");
+                            Console.WriteLine("Ei ole oikea komento. Kirjoita 'apua' saadaksesi listan komennoista.");
                             Console.WriteLine();
                         }
                         else
@@ -99,7 +99,7 @@ namespace Krapula
                     default:
                         if (!CommandList.ContainsKey(cmd[0]))
                         {
-                            Console.WriteLine("Not valid command. Type 'help' to get a list of available commands");
+                            Console.WriteLine("Ei ole oikea komento. Kirjoita 'apua' saadaksesi listan komennoista.");
                             Console.WriteLine();
                         }
                         else
@@ -131,7 +131,7 @@ namespace Krapula
                     if (player.Health <= 0)
                     {
                         IsPlayerAlive = false;
-                        Console.WriteLine($"You got {player.Exp} points! Wow!");
+                        Console.WriteLine($"Sait {player.Exp} pistettä! Wow!");
                        // public int pisteet = player.Exp;
                         Story.Ending(player, armor);
                         
@@ -336,7 +336,7 @@ namespace Krapula
 
         private string Take(string name)
         {
-            if (name.Equals("all"))
+            if (name.Equals("kaikki"))
             {
                 foreach (Item item in currentArea.Items)
                 {
@@ -442,7 +442,7 @@ namespace Krapula
 
                 sb.AppendLine("");
                 sb.AppendLine("Takataskussasi olevat tavarat:");
-                sb.AppendLine(String.Format("{0, -15} {1,15} {2, 15} {3, 15}", "Kledju:", "Vahingoensto:", "Tyylipisteet:", "Arvo:"));
+                sb.AppendLine(String.Format("{0, -15} {1,15} {2, 15} {3, 15}", "Kledju:", "Vahingonesto:", "Tyylipisteet:", "Arvo:"));
 
                 for (int i = 0; i < clothes.Count(); i++)
                 {
@@ -515,7 +515,7 @@ namespace Krapula
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine();
-            sb.Append("Available commands: ");
+            sb.Append("Käytettävissä olevat komennot: ");
             foreach (KeyValuePair<string, Func<string, string>> entry in CommandList)
             {
                 sb.Append(entry.Key + ", ");
