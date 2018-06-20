@@ -254,12 +254,27 @@ namespace Krapula
         public string Attack(string ok)
         {
             Console.Clear();
+            if (player.WeaponEquipped == null && player.Inventory.Count == 0)
+            {
+                Console.WriteLine("Kätesi ovat aseettomat ja huomaat, ettei takataskussaikaan ole mitään taisteluun kelpaavaa!");
+                Story.Ending(player, armor);
+            }
+            if (player.WeaponEquipped.Durability == 0)
+            {
+                string weaponBrokenText = String.Format("Kädessäsi oleva {0} on äärimmilleen ruhjoutunut, jonka takia hyökkäyksesi epäonnistuu kriittisesti." +
+                    " Otat 1 pisteen vahinkoa, kun kädessäsi oleva {0} räjähtää tuhannen päreiksi.", player.WeaponEquipped.Name);
+                player.Health -= 1;
+                player.WeaponEquipped = null;
+                IsPlayerTurn = false;
+                return weaponBrokenText;
+            }
             if (currentArea.NPC == null)
             {
                 return "Pyörähdät vinhasti, kuten torakka blenderissä, mutta lähistölläsi ei ole ketään";
             }
 
             int damage = rand.Next(player.WeaponEquipped.MaxDamage - player.WeaponEquipped.MinDamage);
+            player.WeaponEquipped.Durability -= 1;
             damage += player.WeaponEquipped.MinDamage;
             damage -= (currentArea.NPC.ClothesEquipped.DamageBlock / 2);
             
@@ -277,18 +292,12 @@ namespace Krapula
                 }
                 player.Exp += currentArea.NPC.Exp;
                 player.Gold += currentArea.NPC.Gold;
-            player.WeaponEquipped.Durability -= 1;
-            if (player.WeaponEquipped.Durability == 0)
-            {
-
-                Console.WriteLine("Kiivaan mattopainin tuoksinnassa {0} hajosi! Tarvitset kiperästi jotain uutta kättä pitempää!", player.WeaponEquipped.Name);
-                player.WeaponEquipped = null;
-            }
                 string npcDeadText = String.Format("Flegmaattinen hyökkäyksesi osuu kuin parkinsonintautia kärsivän kirurgin veitsi ja {0} putoaa maahan elottoman näköisenä.", currentArea.NPC.Name);
                 currentArea.NPC = null;
             }
             IsPlayerTurn = false;
-            return String.Format("Ketterästi pyörähtäen silpaiset ja {0} ottaa " + damage + " pistettä vahinkoa", currentArea.NPC.Name);
+            string attackText = String.Format("Ketterästi pyörähtäen silpaiset ja {0} ottaa " + damage + " pistettä vahinkoa", currentArea.NPC.Name);
+            return attackText;
 
         }
         public string Defend(string ok)
@@ -384,11 +393,22 @@ namespace Krapula
             StringBuilder sb = new StringBuilder();
 
             // Add equipped items to output
-            sb.AppendLine("").AppendLine("Päälläsi olevat varusteet:");
-            sb.AppendLine(String.Format("{0, -15} {1, 15} {2 ,15} {3, 15} {4, 15} {5, 15}", "Nimi:", "Vahinko", "Kestävyys", "Vahingoensto:", "Tyylipisteet:", "Arvo:"));
-            sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.ClothesEquipped.Name, "", "", player.ClothesEquipped.DamageBlock, player.ClothesEquipped.Style, player.ClothesEquipped.Value + "€"));
-            sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.WeaponEquipped.Name,
-                player.WeaponEquipped.MinDamage.ToString() + " - " + player.WeaponEquipped.MaxDamage.ToString(), player.WeaponEquipped.Durability, "", "", ""));
+            if (player.WeaponEquipped != null && player.ClothesEquipped != null)
+            {
+                sb.AppendLine("").AppendLine("Päälläsi olevat varusteet:");
+                sb.AppendLine(String.Format("{0, -15} {1, 15} {2 ,15} {3, 15} {4, 15} {5, 15}", "Nimi:", "Vahinko", "Kestävyys", "Vahingoensto:", "Tyylipisteet:", "Arvo:"));
+                sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.ClothesEquipped.Name, "", "", player.ClothesEquipped.DamageBlock, player.ClothesEquipped.Style, player.ClothesEquipped.Value + "€"));
+                sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.WeaponEquipped.Name,
+                    player.WeaponEquipped.MinDamage.ToString() + " - " + player.WeaponEquipped.MaxDamage.ToString(), player.WeaponEquipped.Durability, "", "", ""));
+            }
+            else if (player.WeaponEquipped == null)
+            {
+                Console.WriteLine("Katsot käsiäsi ja huomaat olevasi täysin aseeton.");
+            }
+            else if (player.ClothesEquipped == null)
+            {
+                Console.WriteLine("Katsot itseäsi ja huomaat olevasi täysin alasti. Laita nyt jotain rihman kiertämää yllesi!");
+            }
             if (player.Inventory.Count() == 0)
             {
                 sb.AppendLine("").AppendLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
