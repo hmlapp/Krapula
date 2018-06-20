@@ -262,7 +262,7 @@ namespace Krapula
                 player.Exp += currentArea.NPC.Exp;
                 player.Gold += currentArea.NPC.Gold;
                 currentArea.NPC = null;
-                return "he ded and dropped his items";
+                return "he ded and dropped his items and gold. Sait myös XXX tyylipisteitä";
             }
             IsPlayerTurn = false;
             return "you hit the mörkö for " + damage + " damage";
@@ -300,6 +300,14 @@ namespace Krapula
 
         private string Take(string name)
         {
+            if (name.Equals("all"))
+            {
+                foreach (Item item in currentArea.Items)
+                {
+                    player.Inventory.Add(item);
+                }
+                return "Näet kasapain helyjä. Rohmuat kaiken sylisii ja sullot ne takataskuihisi";
+            }
             Item match = currentArea.Items.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
             if (match != null)
             {

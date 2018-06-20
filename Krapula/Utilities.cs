@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Krapula
 {
-   public class Utilities
+    public class Utilities
     {
 
         // Name generator for area names
@@ -29,8 +29,8 @@ namespace Krapula
             string nameString;
 
             Random rnd = new Random(DateTime.Now.Millisecond);
-            nameString = RandomStringFrom(adjectives).ToLower() + " " 
-                + RandomStringFrom(professions).ToLower() + " " 
+            nameString = RandomStringFrom(adjectives).ToLower() + " "
+                + RandomStringFrom(professions).ToLower() + " "
                 + RandomStringFrom(names);
 
             return nameString;

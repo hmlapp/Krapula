@@ -10,7 +10,7 @@ namespace Krapula
     {
         public bool Evil { get; set; }
         public Random rand;
-        
+
         public NPC() : base()
         {
             rand = new Random();
@@ -48,14 +48,7 @@ namespace Krapula
 
         public List<Item> Dead()
         {
-            if (Health <= 0)
-            {
-                return new List<Item> { WeaponEquipped, ClothesEquipped };
-            }
-            else
-            {
-                return new List<Item>();
-            }
+            return new List<Item> { WeaponEquipped, ClothesEquipped };
         }
     }
 }
