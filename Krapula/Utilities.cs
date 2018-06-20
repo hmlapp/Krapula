@@ -34,7 +34,7 @@ namespace Krapula
             string path3 = names + ".txt";
 
             Random rnd = new Random(DateTime.Now.Millisecond);
-            nameString = RandomStringFrom(path1) + " " 
+            nameString = RandomStringFrom(path1).ToLower() + " " 
                 + RandomStringFrom(path2).ToLower() + " " 
                 + RandomStringFrom(path3);
 
@@ -46,6 +46,11 @@ namespace Krapula
             Random rnd = new Random(DateTime.Now.Millisecond);
             string[] lines = File.ReadAllLines(file);
             return lines[rnd.Next(lines.Length)];
+        }
+
+        public static string FirstCharToUpper(string input)
+        {
+            return input.First().ToString().ToUpper() + input.Substring(1);
         }
     }
 }

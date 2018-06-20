@@ -13,6 +13,7 @@ namespace Krapula
         public List<Area> pastAreas;
         public static bool IsPlayerAlive;
         public static bool IsPlayerTurn;
+        public Random rand;
 
         Dictionary<string, Func<string, string>> CommandList;
 
@@ -24,14 +25,13 @@ namespace Krapula
             pastAreas = new List<Area>();
             IsPlayerAlive = true;
             IsPlayerTurn = true;
+            rand = new Random();
 
-            Story.Beginning();
-            
-            string Pl = Story.TransportationGenerator("movingaround");
-            string Pl2 = Story.NPCnGenerator("seeingthings");
-            Console.WriteLine(Pl + " " + currentArea.Name);
+            //Story.Beginning();
+
+            Console.WriteLine(Story.TransportationGenerator(currentArea.Name));
+            Console.WriteLine(Story.NPCGenerator(currentArea.NPC.Name));
             Console.WriteLine();
-            Console.WriteLine(Pl2 + " " + currentArea.AreaNPC.Name);
             Console.WriteLine();
 
             Console.OutputEncoding = Encoding.UTF8;
@@ -39,16 +39,17 @@ namespace Krapula
             CommandList = new Dictionary<string, Func<string, string>>();
 
             CommandList.Add("go", Go);
-            //CommandList.Add("look", Look);
-            CommandList.Add("hit", Hit);
+            CommandList.Add("look", Look);
+            CommandList.Add("attack", Attack);
             //CommandList.Add("defend", Defend);
-            //CommandList.Add("run", Run);
+            CommandList.Add("run", Run);
             CommandList.Add("take", Take);
             CommandList.Add("equip", Equip);
             //CommandList.Add("inventory", Inventory);
             //CommandList.Add("consume", Consume);
             //CommandList.Add("buy", Buy);
             //CommandList.Add("sell", Sell);
+            CommandList.Add("help", Help);
         }
 
         public void Turn()
@@ -56,13 +57,12 @@ namespace Krapula
             // Await command if it is currently the players turn
             if (IsPlayerTurn)
             {
-                Console.WriteLine(player.Health);
-                string readline = Console.ReadLine();
+                string readline = Console.ReadLine().ToLower();
+                Console.WriteLine();
                 string[] cmd = readline.Split(' ');
                 if (!CommandList.ContainsKey(cmd[0]))
                 {
-                    Console.WriteLine("nope");
-
+                    Console.WriteLine("Not valid command. Type 'help' to get a list of available commands");
                 }
                 else 
                 {
@@ -72,9 +72,10 @@ namespace Krapula
             else
             {
                 //if the enemy still exists, it executes an attack and then the turn is back to the player
-                if (currentArea.AreaNPC != null)
-                { 
-                    currentArea.AreaNPC.Attack(player);
+                if (currentArea.NPC != null)
+                {
+                    Console.WriteLine(currentArea.NPC.Attack(player));
+                    Console.WriteLine();
 
                     if (player.Health <= 0)
                     {
@@ -89,6 +90,11 @@ namespace Krapula
 
         public string Go(string direction)
         {
+            if (currentArea.NPC != null)
+            {
+                IsPlayerTurn = false;
+                return $"{Utilities.FirstCharToUpper(currentArea.NPC.Name)} ottaa sinut kiinni, ja hyökkää";
+            }
             // Go to new area
             if (currentArea.Direction.ContainsKey(direction))
             {
@@ -105,7 +111,19 @@ namespace Krapula
                     dir += 2;
                 }
                 currentArea.SetArea(temp, dir);
-                return currentArea.Name;
+                Console.Clear();
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(Story.TransportationGenerator(currentArea.Name));
+                if (currentArea.NPC != null)
+                {
+                    sb.AppendLine(Story.NPCGenerator(currentArea.NPC.Name));
+                }
+                else
+                {
+                    sb.AppendLine("Tämä paikka näyttää tutulta ja tunnet olevasi turvassa");
+                }
+                sb.AppendLine();
+                return sb.ToString();
             }
             else
             {
@@ -114,33 +132,97 @@ namespace Krapula
         }
         public string Look(string item)
         {
-            if (currentArea.Direction.ContainsKey(item))
+            Console.Clear();
+            StringBuilder sb = new StringBuilder();
+            if (currentArea.NPC == null)
             {
-                int dir = currentArea.Direction[item];
-                return currentArea.SurroundingAreas[dir].Name;
+                sb.AppendLine("Olet yksin alueella... Toistaiseksi");
+                sb.AppendLine();
+                switch ((float)player.Health / (float)player.MaxHealth)
+                {
+                    case 1:
+                        sb.AppendLine("Voit hyvin"); // jotain parempaa pitäisi keksiä ;D
+                        break;
+                    case float i when i < 1.0f && i >= 0.5f:
+                        sb.AppendLine("Alkaa väsyttää..."); // jotain parempaa pitäisi keksiä ;D
+                        break;
+                    case float i when i < 0.5f && i > 0.0f:
+                        sb.AppendLine("Hirvee morkkis..."); // jotain parempaa pitäisi keksiä ;D
+                        break;
+                }
+                sb.AppendLine();
+                sb.AppendLine("Maasta löytyy: ");
+                sb.AppendLine();
+                foreach (Item i in currentArea.Items)
+                {
+                    sb.AppendLine("\t" + i.Name);
+                }
+                sb.AppendLine();
+                sb.AppendLine("Pohjoisesta löydät " + currentArea.SurroundingAreas[0].Name.Split(' ')[0]);
+                sb.AppendLine("Idästä löydät " + currentArea.SurroundingAreas[1].Name.Split(' ')[0]);
+                sb.AppendLine("Etelästä löydät " + currentArea.SurroundingAreas[2].Name.Split(' ')[0]);
+                sb.AppendLine("Lännestä löydät " + currentArea.SurroundingAreas[3].Name.Split(' ')[0]);
             }
+            else
+            {
+                sb.AppendLine("Edessäsi seisoo " + currentArea.NPC.Name);
+
+                switch ((float)currentArea.NPC.Health / (float)currentArea.NPC.MaxHealth)
+                {
+                    case 1:
+                        sb.AppendLine("Näyttää voivan hyvin"); // jotain parempaa pitäisi keksiä ;D
+                        break;
+                    case float i when i < 1.0f && i >= 0.5f:
+                        sb.AppendLine("Näyttäisi siltä että hän olisi vähän väsynyt"); // jotain parempaa pitäisi keksiä ;D
+                        break;
+                    case float i when i < 0.5f && i > 0.0f:
+                        sb.AppendLine("Hän pelkää sinua"); // jotain parempaa pitäisi keksiä ;D
+                        break;
+                }
+
+                sb.AppendLine();
+                sb.AppendLine("Pohjoisesta löydät " + currentArea.SurroundingAreas[0].Name.Split(' ')[0]);
+                sb.AppendLine("Idästä löydät " + currentArea.SurroundingAreas[1].Name.Split(' ')[0]);
+                sb.AppendLine("Etelästä löydät " + currentArea.SurroundingAreas[2].Name.Split(' ')[0]);
+                sb.AppendLine("Lännestä löydät " + currentArea.SurroundingAreas[3].Name.Split(' ')[0]);
+
+                IsPlayerTurn = false;
+            }
+            return sb.ToString();
             // Look towards an (surrounding) area to get information on that area
             // Looking at item gives information on the item
             // Looking around at your current area tells you what you see (NPC/items/treasures...)
             // Looking at NPC gives information
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
-        public string Hit(string ok)
+        public string Attack(string ok)
         {
-            if (currentArea.AreaNPC == null)
+            Console.Clear();
+            if (currentArea.NPC == null)
             {
                 return "nothing to hit";
             }
-            currentArea.AreaNPC.Health -= player.WeaponEquipped.Damage;
-            if (currentArea.AreaNPC.Health <= 0)
+
+            int damage = rand.Next(player.WeaponEquipped.MaxDamage - player.WeaponEquipped.MinDamage);
+            damage += player.WeaponEquipped.MinDamage;
+            damage -= currentArea.NPC.ClothesEquipped.DamageBlock;
+            
+            if (damage < 0)
             {
-                currentArea.Items = currentArea.AreaNPC.Dead();
-                player.Exp += currentArea.AreaNPC.Exp;
-                currentArea.AreaNPC = null;
+                damage = 0;
+            }
+
+            currentArea.NPC.Health -= damage;
+            if (currentArea.NPC.Health <= 0)
+            {
+                currentArea.Items = currentArea.NPC.Dead();
+                player.Exp += currentArea.NPC.Exp;
+                player.Gold += currentArea.NPC.Gold;
+                currentArea.NPC = null;
                 return "he ded and dropped his items";
             }
             IsPlayerTurn = false;
-            return "you hit the mörkö for " + player.WeaponEquipped.Damage + " damage";
+            return "you hit the mörkö for " + damage + " damage";
             //Console.WriteLine("Tehty vahinkoa" + (Damage - Armor.DamageBlock + "pistettä");
 
         }
@@ -152,14 +234,21 @@ namespace Krapula
             //return Equipped.Item.Armor.DamageBlock = Equipped.Item.Armor.DamageBlock* 2; 
             //        Durability = 3;
         }
-        public string Run()
+        public string Run(string ok)
         {
-            // Default return true
-            // Run away from mörkö. Back to previous area
-            // Mörkö can prevent your escape -> return false
+            StringBuilder sb = new StringBuilder();
 
-            // return true;
-            throw new NotImplementedException();
+            sb.AppendLine($"Pakenit turvaan, takaisin {pastAreas.Last().Name}!");
+
+            if (rand.Next() % 3 == 0)
+            {
+                sb.AppendLine($"Pakenessasi {currentArea.NPC} hyökkäsi!");
+                sb.AppendLine(currentArea.NPC.Attack(player));
+            }
+
+            currentArea = pastAreas.Last();
+            
+            return sb.ToString();
         }
 
         private string Take(string name)
@@ -185,6 +274,8 @@ namespace Krapula
                 player.WeaponEquipped = (Weapon)match;
                 player.Inventory.Remove(match);
 
+                IsPlayerTurn = false;
+
                 return "you equipped the weapon";
             }
             else if (match.GetType() == typeof(Armor))
@@ -192,6 +283,8 @@ namespace Krapula
                 player.Inventory.Add(player.ClothesEquipped);
                 player.ClothesEquipped = (Armor)match;
                 player.Inventory.Remove(match);
+
+                IsPlayerTurn = false;
 
                 return "you equipped the armor";
             }
@@ -279,13 +372,19 @@ namespace Krapula
             // Add item to NPC inventory
             throw new NotImplementedException();
         }
-        //if(Health != MaxHealth){
-        //public override int Health
-        //{
-        //    //return Health + Food.Energy;
-        //}
-        //if(Food.Name == "ES"){
-        ////return Equipped.Item.Weapon.Damage = Equipped.Item.Weapon.Damage* 2;
+        public string Help(string ok)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine();
+            sb.Append("Available commands: ");
+            foreach (KeyValuePair<string, Func<string, string>> entry in CommandList)
+            {
+                sb.Append(entry.Key + ", ");
+            }
+
+            sb.Remove(sb.Length - 2, 2);
+            return sb.ToString();
+        }
 
 
     }
