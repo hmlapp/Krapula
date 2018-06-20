@@ -16,11 +16,9 @@ namespace Krapula
         public static string NameGenerator(string places, string nakkikiskat)
         {
             string nameString;
-            string path1 = places + ".txt";
-            string path2 = nakkikiskat + ".txt";
 
             Random rnd = new Random(DateTime.Now.Millisecond);
-            nameString = RandomStringFrom(path1) + " " + RandomStringFrom(path2);
+            nameString = RandomStringFrom(places) + " " + RandomStringFrom(nakkikiskat);
 
             return nameString;
         }
@@ -29,22 +27,20 @@ namespace Krapula
         public static string NameGenerator(string adjectives, string professions, string names)
         {
             string nameString;
-            string path1 = adjectives+ ".txt";
-            string path2 = professions + ".txt";
-            string path3 = names + ".txt";
 
             Random rnd = new Random(DateTime.Now.Millisecond);
-            nameString = RandomStringFrom(path1).ToLower() + " " 
-                + RandomStringFrom(path2).ToLower() + " " 
-                + RandomStringFrom(path3);
+            nameString = RandomStringFrom(adjectives).ToLower() + " " 
+                + RandomStringFrom(professions).ToLower() + " " 
+                + RandomStringFrom(names);
 
             return nameString;
         }
 
         public static string RandomStringFrom(string file)
         {
+
             Random rnd = new Random(DateTime.Now.Millisecond);
-            string[] lines = File.ReadAllLines("resources/" + file);
+            string[] lines = File.ReadAllLines("resources/" + file + ".txt");
             return lines[rnd.Next(lines.Length)];
         }
 

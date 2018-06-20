@@ -36,7 +36,14 @@ namespace Krapula
         public Area()
         {
             // Use area creator method to initialize surrounding areas
+            Random rand = new Random();
+
             SurroundingAreas = new List<Area>();
+            Items = new List<Item>();
+            if (rand.Next() % 2 == 0)
+            {
+                Items.Add(new Food());
+            }
             Name = Utilities.NameGenerator("places", "locations");
             NPC = new NPC();
         }

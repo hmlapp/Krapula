@@ -14,7 +14,7 @@ namespace Krapula
         public Armor() : base()
         {
             Random arm = new Random(DateTime.Now.Millisecond);
-            Name = Utilities.RandomStringFrom("clothes.txt");
+            Name = Utilities.RandomStringFrom("clothes");
             DamageBlock = arm.Next(5);
             Style = arm.Next(10);
         }
