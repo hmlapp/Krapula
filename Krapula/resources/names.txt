@@ -89,7 +89,7 @@ Tomi
 Leo
 Henri
 Joni
-Väinö
+VÃ¤inÃ¶
 Tommi
 Tero
 Eetu
@@ -138,7 +138,7 @@ Aukusti
 Jan
 Kai
 Aarne
-Yrjö
+YrjÃ¶
 Aki
 Juhana
 Artturi
@@ -228,7 +228,7 @@ Tatu
 Sauli
 Jyri
 Max
-Kyösti
+KyÃ¶sti
 Michael
 Gustav
 Veikka
@@ -272,7 +272,7 @@ Juha-Pekka
 Harry
 Paul
 Oscar
-Göran
+GÃ¶ran
 Jami
 Teppo
 Leif
@@ -283,7 +283,7 @@ Aku
 Nils
 Jukka-Pekka
 Luka
-Päiviö
+PÃ¤iviÃ¶
 Luukas
 Tony
 Perttu
@@ -369,7 +369,7 @@ David
 Per
 Taavetti
 Manu
-Håkan
+HÃ¥kan
 Tenho
 Karri
 Luca
@@ -378,7 +378,7 @@ Elmo
 Ari-Pekka
 Helge
 Valter
-Åke
+Ã…ke
 Aleksis
 Gustaf
 Bo
@@ -386,7 +386,7 @@ Verner
 Simon
 Roger
 Erno
-Björn
+BjÃ¶rn
 Ralf
 Kaarle
 Jori
@@ -421,7 +421,7 @@ Timi
 Edward
 Raine
 Salomon
-Börje
+BÃ¶rje
 Ulf
 Jari-Pekka
 Milo
@@ -445,7 +445,7 @@ Alf
 Alvari
 Kristoffer
 Nicolas
-Väinämö
+VÃ¤inÃ¤mÃ¶
 Isak
 Sampsa
 Arne
@@ -475,7 +475,7 @@ Niclas
 Adrian
 Ville-Veikko
 Torsten
-André
+AndrÃ©
 Helmer
 Leon
 Tiitus
@@ -528,7 +528,7 @@ Vesa-Matti
 Niila
 Hemmo
 Jussi-Pekka
-Yrjänä
+YrjÃ¤nÃ¤
 Dennis
 Leander
 Noa
@@ -553,7 +553,7 @@ Frank
 Arimo
 Ilja
 Jim
-Gösta
+GÃ¶sta
 Marius
 Turo
 Atso
@@ -571,7 +571,7 @@ Jonni
 Dimitri
 Mark
 Romeo
-Jörgen
+JÃ¶rgen
 Amos
 Omar
 Ferdinand
@@ -654,7 +654,7 @@ Ivan
 Soini
 Valde
 Raineri
-Torbjörn
+TorbjÃ¶rn
 Aatami
 Hilding
 Esaias
@@ -697,7 +697,7 @@ Jonny
 Karim
 Josef
 Mertsi
-Mårten
+MÃ¥rten
 Maria
 Helena
 Anneli
@@ -725,7 +725,7 @@ Kyllikki
 Aino
 Tuula
 Anne
-Päivi
+PÃ¤ivi
 Orvokki
 Ritva
 Tellervo
@@ -845,10 +845,10 @@ Taina
 Milla
 Emmi
 Mervi
-Päivikki
+PÃ¤ivikki
 Alina
 Miia
-Helinä
+HelinÃ¤
 Virpi
 Erika
 Siiri
@@ -1020,7 +1020,7 @@ Annina
 Fanny
 Loviisa
 Astrid
-Linnéa
+LinnÃ©a
 Aava
 Aini
 Natalia
@@ -1097,7 +1097,7 @@ Varpu
 Solveig
 Lisa
 Carina
-Heljä
+HeljÃ¤
 Monika
 Lilian
 Brita
@@ -1118,7 +1118,7 @@ Inger
 Susan
 Frida
 Laina
-Säde
+SÃ¤de
 Lena
 Mirella
 Miina
@@ -1143,7 +1143,7 @@ Iisa
 Aura
 Pirita
 Valpuri
-Siviä
+SiviÃ¤
 Jasmine
 Vivian
 Saima
@@ -1292,7 +1292,7 @@ Ellinoora
 Maarika
 Ruut
 Isa
-Åsa
+Ã…sa
 Maj-Lis
 Ilmi
 Kerttuli
@@ -1338,7 +1338,7 @@ Unna
 Agnes
 Annikka
 Nita
-Synnöve
+SynnÃ¶ve
 Ina
 Alissa
 Aina

@@ -20,9 +20,9 @@ Velodromille
 Uimahallille
 Metroasemalle
 Juna-asemalle
-Bussipys‰kille
+Bussipys√§kille
 Taksitolpalle
-L‰hipubiin
+L√§hipubiin
 Karaokebaariin
 Adult shopiin
 Thai-hierontaan
@@ -31,36 +31,36 @@ Mielisairaalaan
 Puistoon
 Biitsille
 kaverin mestaan
-Tyˆmaa-alueelle
+Ty√∂maa-alueelle
 Pitseriaan
 Kebab-ravintolaan
 Ravintolaan
 Tanssiravintolaan
-Yˆkerhoon
+Y√∂kerhoon
 Klubille
-B‰kk‰rille
+B√§kk√§rille
 Baariin
 Golfkerholle
 Kadulle
 Ojaan
-Mets‰‰n
+Mets√§√§n
 Savannille
 Risteykseen
 Satamaan
 Laiturille
 Kahvilaan
 Ghettoon
-L‰hiˆˆn
-Pime‰lle kujalle
+L√§hi√∂√∂n
+Pime√§lle kujalle
 Umpikujaan
 Moottoritielle
 Ohitustielle
-Lentokent‰lle
+Lentokent√§lle
 Kattoterassille
 Ullakolle
 Kellariin
 Oikopolulle
-K‰velysillalle
+K√§velysillalle
 Alikululle
 Ylikululle
 Tunneliin
@@ -69,7 +69,7 @@ Vuoristoradalle
 Possujunaan
 Karkkikauppaan
 Tiimariin
-Leip‰jonoon
+Leip√§jonoon
 Narkkiluolaan
 Neulanvaihtopisteelle
 Apteekkiin
