@@ -179,13 +179,13 @@ namespace Krapula
                 switch ((float)player.Health / (float)player.MaxHealth)
                 {
                     case 1:
-                        sb.AppendLine("Voit hyvin"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Vaikka eilinen onkin verrattavissa andromedan kokoiseen mustaan aukkoon ja päässäsi jyskyttää big bang -teoria, tunnet olevasi elämäsi kunnossa!"); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 1.0f && i >= 0.5f:
-                        sb.AppendLine("Alkaa väsyttää..."); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Tunnet, kuinka energiavarastosi hupenevat. Pitäisi löytää jotain ravitsevaa darraruokaa ja pian..."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 0.5f && i > 0.0f:
-                        sb.AppendLine("Hirvee morkkis..."); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Mieltäsi kalvaa ihan hirvee morkkis! Kuinka paha olo voi pienellä ihmisellä olla...?"); // jotain parempaa pitäisi keksiä ;D
                         break;
                 }
                 sb.AppendLine();
