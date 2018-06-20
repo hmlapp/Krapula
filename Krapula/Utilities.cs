@@ -44,7 +44,7 @@ namespace Krapula
         public static string RandomStringFrom(string file)
         {
             Random rnd = new Random(DateTime.Now.Millisecond);
-            string[] lines = File.ReadAllLines(file);
+            string[] lines = File.ReadAllLines("resources/" + file);
             return lines[rnd.Next(lines.Length)];
         }
 
