@@ -21,7 +21,7 @@ namespace Krapula
             Name = Utilities.RandomStringFrom("weapons");
             MaxDamage = rnd.Next(2, 10);
             MinDamage = rnd.Next(2, MaxDamage);
-            Durability = rnd.Next(10);
+            Durability = rnd.Next(2, 10);
         }
     }
 }
