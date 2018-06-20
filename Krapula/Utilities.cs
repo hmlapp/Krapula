@@ -48,5 +48,19 @@ namespace Krapula
         {
             return input.First().ToString().ToUpper() + input.Substring(1);
         }
+
+        public static string ReadLine()
+        {
+            Console.SetCursorPosition(Console.CursorLeft, (Console.WindowTop + Console.WindowHeight - 2));
+            for (int i = 0; i < Console.BufferWidth; i++)
+            {
+                Console.Write("\u2015");
+            }
+            Console.SetCursorPosition(Console.CursorLeft, (Console.WindowTop + Console.WindowHeight - 1));
+            string read = Console.ReadLine();
+            Console.Clear();
+            Console.SetCursorPosition(Console.CursorLeft, Console.WindowTop);
+            return read;
+        }
     }
 }

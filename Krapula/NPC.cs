@@ -26,6 +26,7 @@ namespace Krapula
 
         public string Attack(Player player)
         {
+            StringBuilder sb = new StringBuilder();
             int damage = rand.Next(WeaponEquipped.MaxDamage - WeaponEquipped.MinDamage);
             damage += WeaponEquipped.MinDamage;
             int block = player.ClothesEquipped.DamageBlock;
@@ -43,7 +44,10 @@ namespace Krapula
             }
 
             player.Health -= damage;
-            return Utilities.FirstCharToUpper(Name) + " hyökkäsi ja aiheutti " + damage + " vahinkoa";
+
+            sb.AppendLine(Utilities.FirstCharToUpper(Name) + " hyökkäsi ja aiheutti " + damage + " vahinkoa").AppendLine();
+            sb.AppendLine("Aiotko kääntää toista poskea, tai tehdä jotain?");
+            return sb.ToString();
         }
 
         public List<Item> Dead()

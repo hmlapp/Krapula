@@ -22,6 +22,7 @@ namespace Krapula
             MaxDamage = rnd.Next(2, 10);
             MinDamage = rnd.Next(2, MaxDamage);
             Durability = rnd.Next(2, 10);
+            Value = (int)(MaxDamage * Durability * rnd.Next(50,55));
         }
     }
 }

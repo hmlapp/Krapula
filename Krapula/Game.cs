@@ -40,8 +40,8 @@ namespace Krapula
             Console.WriteLine(Story.NPCGenerator(currentArea.NPC.Name));
             Console.WriteLine();
             Console.WriteLine("Mitä teet?");
+            Console.WriteLine();
 
-            Console.OutputEncoding = Encoding.UTF8;
 
             CommandList = new Dictionary<string, Func<string, string>>();
 
@@ -80,7 +80,7 @@ namespace Krapula
                     }
                 }
 
-                string readline = Console.ReadLine().ToLower();
+                string readline = Utilities.ReadLine().ToLower();
                 Console.WriteLine();
                 string[] cmd = readline.Split(' ');
                 switch (cmd.Length)
@@ -180,7 +180,8 @@ namespace Krapula
                 }
                 sb.AppendLine();
                 sb.AppendLine("Mitä teet?");
-                
+                sb.AppendLine();
+
                 return sb.ToString();
             }
             else
@@ -209,8 +210,11 @@ namespace Krapula
                         break;
                 }
                 sb.AppendLine();
-                sb.AppendLine("Maasta löytyy: ");
-                sb.AppendLine();
+                if (currentArea.Items.Count() > 0)
+                {
+                    sb.AppendLine("Maasta löytyy: ");
+                    sb.AppendLine();
+                }
                 foreach (Item i in currentArea.Items)
                 {
                     sb.AppendLine("\t" + i.Name);
@@ -256,20 +260,25 @@ namespace Krapula
         public string Attack(string ok)
         {
             Console.Clear();
+            StringBuilder sb = new StringBuilder();
             if (player.WeaponEquipped == null && player.Inventory.Count == 0)
             {
                 Console.WriteLine("Kätesi ovat aseettomat ja huomaat, ettei takataskussaikaan ole mitään taisteluun kelpaavaa!");
                 Console.WriteLine();
+                IsPlayerAlive = false;
+                IsPlayerTurn = false;
                 Restart = Story.Ending(player, armor);
+                return "";
             }
             if (player.WeaponEquipped.Durability == 0)
             {
-                string weaponBrokenText = String.Format("Kädessäsi oleva {0} on äärimmilleen ruhjoutunut, jonka takia hyökkäyksesi epäonnistuu kriittisesti." +
-                    " Otat 1 pisteen vahinkoa, kun kädessäsi oleva {0} räjähtää tuhannen %&#!#? päreiksi.", player.WeaponEquipped.Name);
+                sb.AppendLine($"Kädessäsi oleva {player.WeaponEquipped.Name} on äärimmilleen ruhjoutunut, " +
+                    $"jonka takia hyökkäyksesi epäonnistuu kriittisesti. Otat 1 pisteen vahinkoa, kun kädessäsi oleva " +
+                    $"{player.WeaponEquipped.Name} räjähtää tuhannen %&#!#? päreiksi.");
                 player.Health -= 1;
                 player.WeaponEquipped = null;
                 IsPlayerTurn = false;
-                return weaponBrokenText;
+                return sb.ToString();
             }
             if (currentArea.NPC == null)
             {
@@ -297,20 +306,25 @@ namespace Krapula
                 }
                 player.Exp += currentArea.NPC.Exp;
                 player.Gold += currentArea.NPC.Gold;
-                string npcDeadText = String.Format("Flegmaattinen hyökkäyksesi osuu kuin parkinsonintautia kärsivän kirurgin veitsi ja {0} putoaa maahan elottoman näköisenä.", currentArea.NPC.Name);
+                sb.AppendLine($"Flegmaattinen hyökkäyksesi osuu kuin parkinsonintautia kärsivän kirurgin veitsi ja {currentArea.NPC.Name} putoaa maahan elottoman näköisenä");
+                sb.AppendLine();
+                sb.AppendLine("Mitä sitten teet?");
                 currentArea.NPC = null;
-                return npcDeadText;
+                return sb.ToString();
             }
             IsPlayerTurn = false;
-            string attackText = String.Format("Ketterästi pyörähtäen silpaiset ja {0} ottaa " + damage + " pistettä vahinkoa", currentAreaNPCName);
-            return attackText;
+            sb.AppendLine($"Ketterästi pyörähtäen silpaiset ja {currentAreaNPCName} ottaa " + damage + " pistettä vahinkoa");
+            return sb.ToString();
 
         }
         public string Defend(string ok)
         {
+            Console.Clear();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Käytät kaikki keskittymiskykysi itsesäsi puolustamiseen, ja tunnet olevasi Bruce Lee konsonaan").AppendLine();
             player.IsDefending = true;
             IsPlayerTurn = false;
-            return "Puolustat";
+            return sb.ToString();
         }
         public string Run(string ok)
         {
@@ -322,14 +336,14 @@ namespace Krapula
                 if (rand.Next() % 3 == 0)
                 {
                     sb.AppendLine($"Paetessasi {currentArea.NPC.Name} hyökkäsi!");
-                    sb.AppendLine(currentArea.NPC.Attack(player));
+                    sb.AppendLine(currentArea.NPC.Attack(player)).AppendLine();
                 }
 
                 currentArea = pastAreas.Last();
             }
             else
             {
-                sb.AppendLine($"Et tiedä mihin pakenisit, ja panikoit. {Utilities.FirstCharToUpper(currentArea.NPC.Name)} käytti paniikkiasi hyödyksi ja hyökkäsi!");
+                sb.AppendLine($"Et tiedä mihin pakenisit, ja panikoit. {Utilities.FirstCharToUpper(currentArea.NPC.Name)} käytti paniikkiasi hyödyksi ja hyökkäsi!").AppendLine();
                 IsPlayerTurn = false;
             }
             
@@ -340,23 +354,28 @@ namespace Krapula
         {
             if (name.Equals("kaikki"))
             {
+                if (currentArea.Items.Count == 0)
+                {
+                    return "Et löydä enää mitään\n";
+                }
                 foreach (Item item in currentArea.Items)
                 {
                     player.Inventory.Add(item);
                 }
-                return "Näet kasapain helyjä. Rohmuat kaiken syliisi ja sullot ne takataskuihisi";
+                currentArea.Items.RemoveAll(i => true);
+                return "Näet kasapain helyjä. Rohmuat kaiken syliisi ja sullot ne takataskuihisi\n";
             }
             Item match = currentArea.Items.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
             if (match != null)
             {
                 player.Inventory.Add(match);
-                string pickUpItem = String.Format("Nostat maasta jotain kimaltavaa. Kädessäsi on {0}. Sujautat sen takataskuusi.", match.Name);
+                string pickUpItem = String.Format("Nostat maasta jotain kimaltavaa. Kädessäsi on {0}. Sujautat sen takataskuusi", match.Name);
                 currentArea.Items.Remove(match);
                 return pickUpItem;
             }
             else
             {
-                return "Lähistölläsi ei ole kyseistä tavaraa.";
+                return "Lähistölläsi ei ole kyseistä tavaraa";
             }
         }
 
@@ -398,10 +417,12 @@ namespace Krapula
             List<Armor> clothes = new List<Armor>();
             StringBuilder sb = new StringBuilder();
 
+            Console.Clear();
+
             // Add equipped items to output
             if (player.WeaponEquipped != null && player.ClothesEquipped != null)
             {
-                sb.AppendLine("").AppendLine("Päälläsi olevat varusteet:");
+                sb.AppendLine("Päälläsi olevat varusteet:").AppendLine();
                 sb.AppendLine(String.Format("{0, -15} {1, 15} {2 ,15} {3, 15} {4, 15} {5, 15}", "Nimi:", "Vahinko", "Kestävyys", "Vahingoensto:", "Tyylipisteet:", "Arvo:"));
                 sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.ClothesEquipped.Name, "", "", player.ClothesEquipped.DamageBlock, player.ClothesEquipped.Style, player.ClothesEquipped.Value + "€"));
                 sb.AppendLine(String.Format("{0, -15} {1, 15} {2, 15} {3, 15} {4, 15} {5, 15}", player.WeaponEquipped.Name,
@@ -417,21 +438,21 @@ namespace Krapula
             }
             if (player.Inventory.Count() == 0)
             {
-                sb.AppendLine("").AppendLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
+                sb.AppendLine().AppendLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
             }
             else
             {
                 // Tells the player what items he/she has
                 foreach (var item in player.Inventory)
                 {
-                    if (item.GetType() == null)
+                    if (item?.GetType() == null)
                     {
                         continue;
                     }
                     else if (item.GetType() == (typeof(Food)))
                     {
                         foods.Add((Food)item);
-                    }
+                    } 
                     else if (item.GetType() == (typeof(Weapon)))
                     {
                         weapons.Add((Weapon)item);
@@ -442,8 +463,7 @@ namespace Krapula
                     }
                 }
 
-                sb.AppendLine("");
-                sb.AppendLine("Takataskussasi olevat tavarat:");
+                sb.AppendLine().AppendLine("Takataskussasi olevat tavarat:").AppendLine();
                 sb.AppendLine(String.Format("{0, -15} {1,15} {2, 15} {3, 15}", "Kledju:", "Vahingonesto:", "Tyylipisteet:", "Arvo:"));
 
                 for (int i = 0; i < clothes.Count(); i++)
@@ -516,7 +536,6 @@ namespace Krapula
         public string Help(string ok)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine();
             sb.Append("Käytettävissä olevat komennot: ");
             foreach (KeyValuePair<string, Func<string, string>> entry in CommandList)
             {
@@ -524,6 +543,7 @@ namespace Krapula
             }
 
             sb.Remove(sb.Length - 2, 2);
+            sb.AppendLine();
             return sb.ToString();
         }
 

@@ -16,7 +16,7 @@ namespace Krapula
             Name = Utilities.RandomStringFrom("food");
             Random rand = new Random(DateTime.Now.Millisecond);
             Energy = rand.Next(1, 6);
-            Value = rand.Next(100);
+            Value = Energy * 10;
         } 
     }
 }

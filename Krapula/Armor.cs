@@ -13,10 +13,11 @@ namespace Krapula
         public int Style { get; set; }
         public Armor() : base()
         {
-            Random arm = new Random(DateTime.Now.Millisecond);
+            Random rand = new Random(DateTime.Now.Millisecond);
             Name = Utilities.RandomStringFrom("clothes");
-            DamageBlock = arm.Next(5);
-            Style = arm.Next(10);
+            DamageBlock = rand.Next(5);
+            Style = rand.Next(10);
+            Value = (int)(DamageBlock * Style * rand.Next(50,55));
         }
     }
 }

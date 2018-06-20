@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,16 +17,19 @@ namespace Krapula
        public static string Beginning()
       {
             BeginningStories.Starts();
-          //  Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
-          // System.Threading.Thread.Sleep(3000);
-          //  Console.WriteLine("Suusi on tahmea, päähän sattuu ja jossain haisee oksennus."  );
-          //  System.Threading.Thread.Sleep(3000);
-          //  Console.WriteLine("Joka paikkaa särkee, mutta kotiin pitäisi päästä..");
-          // System.Threading.Thread.Sleep(3000);
-            Console.WriteLine("Kasaa ajatuksesi ja kerro nimesi.. muistatko mikä se on?: ");
-            string nimi = Console.ReadLine();
+
+            Console.WriteLine("Kasaa ajatuksesi ja kerro nimesi.. muistatko mikä se on?");
+            Console.WriteLine();
+            string nimi = Utilities.ReadLine();
+            while (nimi == null || nimi == "")
+            {
+                Console.WriteLine("Herätys! Ei toi voi olla sun nimi!");
+                Console.WriteLine("Yritä uudelleen");
+                Console.WriteLine();
+                nimi = Utilities.ReadLine();
+            }
             Console.Clear();
-            return nimi;
+            return nimi.Trim();
         }
         
 
@@ -44,6 +48,7 @@ namespace Krapula
         }
         public static bool Ending(Player player, Armor armor) 
         {
+            Console.Clear();
             string name = Utilities.NameGenerator("adjectives", "professions").ToLower() + " " + player.Name;
             Console.WriteLine("Paha mörkö voitti sinut..snif.");
             Console.WriteLine();
@@ -103,16 +108,16 @@ namespace Krapula
             Console.WriteLine("Tyyli- ja tappopisteet yhteensä: " + styyli);
             Console.WriteLine();
 
+            HttpClient client = new HttpClient();
 
-            using (var wb = new WebClient())
+            var data = new Dictionary<string, string>
             {
-                var data = new NameValueCollection();
-                data["score"] = styyli.ToString();
-                data["name"] = player.Name;
+                { "score", styyli.ToString() }, { "name", name }, { "privatekey", "imeanthisisveryprivate" }
+            };
 
-                var response = wb.UploadValues("http://localhost:3000", "POST", data);
-                string responseInString = Encoding.UTF8.GetString(response);
-            }
+            var content = new FormUrlEncodedContent(data);
+
+            var response = client.PostAsync("http://stuk.is/", content);
 
             System.Threading.Thread.Sleep(3000);
 
@@ -122,7 +127,7 @@ namespace Krapula
             switch (vastaus)
             {
                 case string s when (vastaus == "kyllä" || vastaus == "yes" || vastaus == "k"):
-                    Console.WriteLine("Toivottavasti pärjäät paremmin nyt!");
+                    Console.WriteLine("Toivottavasti pärjäät paremmin tällä kertaa!");
                     return true;
                 case string s when (vastaus == "ei" || vastaus == "no" || vastaus == "e"):
                     Console.WriteLine("Fiksu päätös.");
