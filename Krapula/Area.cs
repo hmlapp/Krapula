@@ -27,10 +27,10 @@ namespace Krapula
 
         public Dictionary<string, int> Direction = new Dictionary<string, int>()
         {
-            {"north", 0},
-            {"east", 1 },
-            {"south", 2 },
-            {"west", 3 }
+            {"pohjoiseen", 0},
+            {"itään", 1 },
+            {"etelään", 2 },
+            {"länteen", 3 }
         };
 
         public Area()
