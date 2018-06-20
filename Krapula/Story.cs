@@ -10,20 +10,20 @@ namespace Krapula
     public class Story
     {
        
-
-       public static void Beginning()
+        
+       public static string Beginning()
       {
-         
+            
             Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
-            System.Threading.Thread.Sleep(3000);
+           // System.Threading.Thread.Sleep(3000);
             Console.WriteLine("Suusi on tahmea, päähän sattuu ja jossain haisee oksennus."  );
-            System.Threading.Thread.Sleep(3000);
+          //  System.Threading.Thread.Sleep(3000);
             Console.WriteLine("Joka paikkaa särkee, mutta kotiin pitäisi päästä..");
-            System.Threading.Thread.Sleep(3000);
-            Console.WriteLine("Paina 'ENTER' jatkaaksesi");
-            Console.ReadLine();
+           // System.Threading.Thread.Sleep(3000);
+            Console.WriteLine("Kasaa ajatuksesi ja kerro nimesi.. muistatko mikä se on?: ");
+            string nimi = Console.ReadLine();
             Console.Clear();
-
+            return nimi;
         }
         
 
@@ -40,48 +40,64 @@ namespace Krapula
 
             return Utilities.RandomStringFrom(path).Trim() + " " + npc;
         }
-        public static void Ending()
+        public static void Ending(Player player, Armor armor) 
         {
-            Console.WriteLine("Paha mörkö voitti sinut.. snif.");
+            Console.WriteLine("Paha mörkö voitti sinut..snif.");
             System.Threading.Thread.Sleep(3000);
-            Console.WriteLine("Mutta ei hätää. Seikkailit tyylikkäillä vaatteilla, taistelit parhaasi mukaan ja päällesi jäi: ");  //equippedarmor);
+            Console.WriteLine("Mutta ei hätää. Seikkailit tyylikkäillä vaatteilla, taistelit parhaasi mukaan ja sait pelistäsi tyylipisteitä: "+player.ClothesEquipped.Style);
+            Console.WriteLine("Lopullinen varustuksesi oli: " +player.ClothesEquipped.Name+ " ja aseenasi oli " + player.WeaponEquipped.Name);
             System.Threading.Thread.Sleep(3000);
-            Console.WriteLine("");
-            System.Threading.Thread.Sleep(3000);
+            Console.WriteLine();
+            Console.Write("Takataskussasi kuolinhetkelläsi olivat seuraavat tavarat: ");
+            foreach (var i in player.Inventory)
+            {
+               
+                Console.Write("\n{0}\t", i.Name);
+            }
+            Console.WriteLine();
+         
 
-            int pisteet = 50;
+            int pisteet = player.Exp;
             switch (pisteet)
             {
-                case int n when (n >= 60):
-                    Console.WriteLine("Wau. Huipputulos!! Oletko harjoitellut kotiin selviämistä aiemminkin? ");
-
+                case int n when (pisteet > 80):
+                    Console.WriteLine("Wau. Huipputulos!! Oletko yrittänyt selvitä kotiin aiemminkin?");
                     break;
-                case int n when (n < 59 && n >= 30):
+                case int n when (pisteet < 79 && pisteet >= 30):
                     Console.WriteLine("Pelasit hyvin.. ish.");
                     break;
-                case int n when (n < 29 && n >= 0):
-                    Console.WriteLine("Höh, et oikein pärjännyt tällä kertaa. Muista nesteyttää itseäsi ennen peliä ja yritä uudelleen! ");
+                case int n when (pisteet < 29 && pisteet >= 0):
+                    Console.WriteLine("Höh, et oikein pärjännyt tällä kertaa. Muista nesteyttää itseäsi ennen peliä ja yritä uudelleen!");
                     break;
                 default:
                     Console.WriteLine("Pelasit sitten meidän peliä.");
                     break;
             }
+            Console.WriteLine();
+            int styyli = player.ClothesEquipped.Style * player.Exp;         
+                if (player.Exp == 0)
+            {
+                styyli = player.ClothesEquipped.Style;
+            }           
+            Console.WriteLine("Tyyli- ja tappopisteet yhteensä: "+styyli);
+            Console.WriteLine();
+             System.Threading.Thread.Sleep(3000);
 
-                   Console.WriteLine("Haluatko pelata uudelleen? (Kyllä/Ei)");
-            string vastaus= Console.ReadLine().ToLower();
+            Console.WriteLine("Haluatko pelata uudelleen? (Kyllä/Ei)");
+            string vastaus = Console.ReadLine().ToLower();
             switch (vastaus)
             {
                 case string s when (vastaus == "kyllä" || vastaus == "yes" || vastaus == "k"):
-                    Console.WriteLine("Jee uudestaan.");
+                    Console.WriteLine("Valitse Ei!");                
                     break;
                 case string s when (vastaus == "ei" || vastaus == "no" || vastaus == "e"):
                     Console.WriteLine("Fiksu päätös.");
-                    break;                
+                    break;
                 default:
                     Console.WriteLine("Anna kunnollinen vastaus");
-                    break; 
+                    break;
             }
-            
+
         }
     }
 }
