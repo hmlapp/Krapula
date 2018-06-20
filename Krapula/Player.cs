@@ -13,7 +13,7 @@ namespace Krapula
 
         public Player(string name) : base()
         {
-            Inventory = new List<Item>() { new Weapon("Mora"), new Weapon("kola"), new Armor("mekko"), new Food("muikku", 2, 4) };
+            Inventory = new List<Item>();
             Name = name;
             Gold = 0;
             Health = 20;

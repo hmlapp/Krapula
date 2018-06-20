@@ -46,7 +46,7 @@ namespace Krapula
             CommandList.Add("run", Run);
             CommandList.Add("take", Take);
             CommandList.Add("equip", Equip);
-            //CommandList.Add("inventory", Inventory);
+            CommandList.Add("inventory", Inventory);
             //CommandList.Add("consume", Consume);
             //CommandList.Add("buy", Buy);
             //CommandList.Add("sell", Sell);
@@ -311,7 +311,7 @@ namespace Krapula
         }
 
         // Ville
-        public string Inventory()
+        public string Inventory(string ok)
         {
             List<Food> foods = new List<Food>();
             List<Weapon> weapons = new List<Weapon>();
@@ -326,7 +326,7 @@ namespace Krapula
                 player.WeaponEquipped.MinDamage.ToString() + " - " + player.WeaponEquipped.MaxDamage.ToString(), player.WeaponEquipped.Durability, "", "", ""));
             if (player.Inventory.Count() == 0)
             {
-                sb.AppendLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
+                sb.AppendLine("").AppendLine("Takataskusi ovat tyhjää täynnä. Ei edes nöyhtää!");
             }
             else
             {
@@ -364,7 +364,7 @@ namespace Krapula
                 sb.AppendLine("").AppendLine(String.Format("{0, -15} {1,15} {2, 15}", "Ase:", "Vahinko:", "Kestävyys"));
                 for (int i = 0; i < weapons.Count(); i++)
                 {
-                    sb.AppendLine(String.Format("{0,-15} {1,15} {2, 15}", weapons[i].Name, weapons[i].MinDamage.ToString() + " - " + weapons[i].MaxDamage.ToString(), weapons[i].Damage, weapons[i].Durability));
+                    sb.AppendLine(String.Format("{0,-15} {1,15} {2, 15}", weapons[i].Name, weapons[i].MinDamage.ToString() + " - " + weapons[i].MaxDamage.ToString(), weapons[i].Durability));
                 }
 
                
