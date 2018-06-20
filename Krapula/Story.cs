@@ -81,7 +81,6 @@ namespace Krapula
                     Console.WriteLine("Anna kunnollinen vastaus");
                     break; 
             }
-
             
         }
     }

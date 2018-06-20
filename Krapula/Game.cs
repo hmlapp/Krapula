@@ -81,6 +81,8 @@ namespace Krapula
                     {
                         IsPlayerAlive = false;
                         Console.WriteLine($"You got {player.Exp} points! Wow!");
+                        Story.Ending();
+                        
                     }
                 }
 
