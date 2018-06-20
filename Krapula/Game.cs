@@ -77,13 +77,32 @@ namespace Krapula
                 string readline = Console.ReadLine().ToLower();
                 Console.WriteLine();
                 string[] cmd = readline.Split(' ');
-                if (!CommandList.ContainsKey(cmd[0]))
+                switch (cmd.Length)
                 {
-                    Console.WriteLine("Not valid command. Type 'help' to get a list of available commands");
-                }
-                else 
-                {
-                    Console.WriteLine(CommandList[cmd[0]](cmd[1]));
+                    case 0:
+                        break;
+                    case 1:
+                        if (!CommandList.ContainsKey(cmd[0]))
+                        {
+                            Console.WriteLine("Not valid command. Type 'help' to get a list of available commands");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine(CommandList[cmd[0]](" "));
+                        }
+                        break;
+                    default:
+                        if (!CommandList.ContainsKey(cmd[0]))
+                        {
+                            Console.WriteLine("Not valid command. Type 'help' to get a list of available commands");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine(CommandList[cmd[0]](cmd[1]));
+                        }
+                        break;
                 }
             }
             else
@@ -232,7 +251,10 @@ namespace Krapula
             currentArea.NPC.Health -= damage;
             if (currentArea.NPC.Health <= 0)
             {
-                currentArea.Items = currentArea.NPC.Dead();
+                foreach (Item item in currentArea.NPC.Dead())
+                {
+                    currentArea.Items.Add(item);
+                }
                 player.Exp += currentArea.NPC.Exp;
                 player.Gold += currentArea.NPC.Gold;
                 currentArea.NPC = null;
@@ -251,16 +273,23 @@ namespace Krapula
         public string Run(string ok)
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"Pakenit turvaan, takaisin {pastAreas.Last().Name}!");
-
-            if (rand.Next() % 3 == 0)
+            if (pastAreas.Count > 0)
             {
-                sb.AppendLine($"Pakenessasi {currentArea.NPC} hyökkäsi!");
-                sb.AppendLine(currentArea.NPC.Attack(player));
-            }
+                sb.AppendLine($"Pakenit turvaan, takaisin {pastAreas.Last().Name}!");
 
-            currentArea = pastAreas.Last();
+                if (rand.Next() % 3 == 0)
+                {
+                    sb.AppendLine($"Pakenessasi {currentArea.NPC.Name} hyökkäsi!");
+                    sb.AppendLine(currentArea.NPC.Attack(player));
+                }
+
+                currentArea = pastAreas.Last();
+            }
+            else
+            {
+                sb.AppendLine($"Et tiedä mihin pakenisit, ja panikoit. {Utilities.FirstCharToUpper(currentArea.NPC.Name)} käytti paniikkiasi hyödyksi ja hyökkäsi!");
+                IsPlayerTurn = false;
+            }
             
             return sb.ToString();
         }
@@ -282,7 +311,7 @@ namespace Krapula
         public string Equip(string name)
         {
             Item match = player.Inventory.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
-            if (match.GetType() == typeof(Weapon))
+            if (match?.GetType() == typeof(Weapon))
             {
                 player.Inventory.Add(player.WeaponEquipped);
                 player.WeaponEquipped = (Weapon)match;
@@ -292,7 +321,8 @@ namespace Krapula
 
                 return "you equipped the weapon";
             }
-            else if (match.GetType() == typeof(Armor))
+
+            else if (match?.GetType() == typeof(Armor))
             {
                 player.Inventory.Add(player.ClothesEquipped);
                 player.ClothesEquipped = (Armor)match;
@@ -353,7 +383,7 @@ namespace Krapula
                 Console.WriteLine("{0, -15} {1,15}", "Ase:", "Vahinko:");
                 for (int i = 0; i < weapons.Count(); i++)
                 {
-                    Console.WriteLine("{0,-15} {1,15}", weapons[i].Name, weapons[i].Damage);
+                    Console.WriteLine("{0,-15} {1,15}", weapons[i].Name, weapons[i].MaxDamage);
                 }
             }
             return "Inventaario tehty";
