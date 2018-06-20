@@ -45,7 +45,14 @@ namespace Krapula
             Console.WriteLine("Paha mörkö voitti sinut..snif.");
             System.Threading.Thread.Sleep(3000);
             Console.WriteLine("Mutta ei hätää. Seikkailit tyylikkäillä vaatteilla, taistelit parhaasi mukaan ja sait pelistäsi tyylipisteitä: "+player.ClothesEquipped.Style);
-            Console.WriteLine("Lopullinen varustuksesi oli: " +player.ClothesEquipped.Name+ " ja aseenasi oli " + player.WeaponEquipped.Name);
+            if (player.WeaponEquipped == null)
+            {
+                Console.WriteLine("Lopullinen varustuksesi oli: " + player.ClothesEquipped.Name);
+            }
+            else
+            {
+                Console.WriteLine("Lopullinen varustuksesi oli: " +player.ClothesEquipped.Name+ " ja aseenasi oli " + player.WeaponEquipped.Name);
+            }
             System.Threading.Thread.Sleep(3000);
             Console.WriteLine();
             Console.Write("Takataskussasi kuolinhetkelläsi olivat seuraavat tavarat: ");
