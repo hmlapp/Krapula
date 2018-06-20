@@ -11,7 +11,7 @@ namespace Krapula
         public static string Starts()
         {
             Random rnd = new Random();
-            int tarina = rnd.Next(1, 8);
+            int tarina = rnd.Next(1, 9);
 
             switch (tarina)
             {
@@ -27,7 +27,7 @@ namespace Krapula
                 case 2:
                     Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
                     System.Threading.Thread.Sleep(3000);
-                    Console.WriteLine("Tuli vissiin suhlittua vähän reippaammin ja sen huomaa.");
+                    Console.WriteLine("Tuli vissiin juhlittua vähän reippaammin ja sen huomaa.");
                     System.Threading.Thread.Sleep(3000);
                     Console.WriteLine("Oksennat näppäimistölle ja päätät lähteä raahautumaan kotia kohti.");
                     System.Threading.Thread.Sleep(3000);
@@ -79,6 +79,15 @@ namespace Krapula
                     System.Threading.Thread.Sleep(3000);
                     break;
 
+                case 8:
+                    Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
+                    System.Threading.Thread.Sleep(3000);
+                    Console.WriteLine("Ei hitto.. oliko taas pakko törpötellä ja tuhlata kaikki rahat? -_-");
+                    System.Threading.Thread.Sleep(3000);
+                    Console.WriteLine("Päätät tärisevin jaloin lähteä eteenpäin, kun et voi tähänkään jäädä.");
+                    System.Threading.Thread.Sleep(3000);
+                    break;
+
                 default:
                     Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
                     System.Threading.Thread.Sleep(3000);
@@ -92,5 +101,4 @@ namespace Krapula
             return tarina.ToString(); 
         }
     }
-
 }

@@ -257,6 +257,7 @@ namespace Krapula
             if (player.WeaponEquipped == null && player.Inventory.Count == 0)
             {
                 Console.WriteLine("Kätesi ovat aseettomat ja huomaat, ettei takataskussaikaan ole mitään taisteluun kelpaavaa!");
+                Console.WriteLine();
                 Story.Ending(player, armor);
             }
             if (player.WeaponEquipped.Durability == 0)

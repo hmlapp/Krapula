@@ -10,11 +10,13 @@ namespace Krapula
     {
         static void Main(string[] args)
         {
+            Alku:
             Game game = new Game(Story.Beginning());
             while (Game.IsPlayerAlive)
             {
                 game.Turn();
+
             }
-        }
+        }   
     }
 }
