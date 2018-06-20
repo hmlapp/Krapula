@@ -32,7 +32,7 @@ namespace Krapula
             IsPlayerTurn = true;
             rand = new Random();
 
-            Story.Beginning();
+ 
 
             Console.WriteLine(Story.TransportationGenerator(currentArea.Name));
             Console.WriteLine(Story.NPCGenerator(currentArea.NPC.Name));

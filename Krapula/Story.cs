@@ -13,13 +13,13 @@ namespace Krapula
         
        public static string Beginning()
       {
-            
-            Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
-           // System.Threading.Thread.Sleep(3000);
-            Console.WriteLine("Suusi on tahmea, päähän sattuu ja jossain haisee oksennus."  );
+            BeginningStories.Starts();
+          //  Console.WriteLine("Heräät juhannuksen jälkeen kaameassa krapulassa.");
+          // System.Threading.Thread.Sleep(3000);
+          //  Console.WriteLine("Suusi on tahmea, päähän sattuu ja jossain haisee oksennus."  );
           //  System.Threading.Thread.Sleep(3000);
-            Console.WriteLine("Joka paikkaa särkee, mutta kotiin pitäisi päästä..");
-           // System.Threading.Thread.Sleep(3000);
+          //  Console.WriteLine("Joka paikkaa särkee, mutta kotiin pitäisi päästä..");
+          // System.Threading.Thread.Sleep(3000);
             Console.WriteLine("Kasaa ajatuksesi ja kerro nimesi.. muistatko mikä se on?: ");
             string nimi = Console.ReadLine();
             Console.Clear();
@@ -43,7 +43,9 @@ namespace Krapula
         public static void Ending(Player player, Armor armor) 
         {
             Console.WriteLine("Paha mörkö voitti sinut..snif.");
+            Console.WriteLine("Olit suuri ja mahtava " + Utilities.NameGenerator("adjectives", "professions").ToLower()+ " " + player.Name);
             System.Threading.Thread.Sleep(3000);
+
             Console.WriteLine("Mutta ei hätää. Seikkailit tyylikkäillä vaatteilla, taistelit parhaasi mukaan ja sait pelistäsi tyylipisteitä: "+player.ClothesEquipped.Style);
             if (player.WeaponEquipped == null)
             {
@@ -55,11 +57,18 @@ namespace Krapula
             }
             System.Threading.Thread.Sleep(3000);
             Console.WriteLine();
-            Console.Write("Takataskussasi kuolinhetkelläsi olivat seuraavat tavarat: ");
-            foreach (var i in player.Inventory)
+            if (player.Inventory.Count >= 1)
             {
-               
-                Console.Write("\n{0}\t", i.Name);
+                Console.Write("Takataskussasi kuolinhetkelläsi olivat seuraavat tavarat: ");
+                foreach (var i in player.Inventory)
+                {
+
+                    Console.Write("\n{0}\t", i.Name);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Kuolinsyyntutkija löysi takataskuistasi vain nöyhtää.");
             }
             Console.WriteLine();
          

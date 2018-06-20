@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Area.cs" />
     <Compile Include="Armor.cs" />
+    <Compile Include="BeginningStories.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="NPC.cs" />
