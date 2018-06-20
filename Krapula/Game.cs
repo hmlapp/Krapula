@@ -8,6 +8,7 @@ namespace Krapula
 {
     class Game
     {
+        public Armor armor;
         public Player player;
         public Area currentArea;
         public List<Area> pastAreas;
@@ -15,9 +16,12 @@ namespace Krapula
         public static bool IsPlayerTurn;
         public Random rand;
         int turnsDefended;
-        
-        Dictionary<string, Func<string, string>> CommandList;
+       
 
+
+
+        Dictionary<string, Func<string, string>> CommandList;
+      
         public Game(string name)
         {
             player = new Player(name);
@@ -128,7 +132,8 @@ namespace Krapula
                     {
                         IsPlayerAlive = false;
                         Console.WriteLine($"You got {player.Exp} points! Wow!");
-                        Story.Ending();
+                       // public int pisteet = player.Exp;
+                        Story.Ending(player, armor);
                         
                     }
                 }
@@ -221,13 +226,13 @@ namespace Krapula
                 switch ((float)currentArea.NPC.Health / (float)currentArea.NPC.MaxHealth)
                 {
                     case 1:
-                        sb.AppendLine("Näyttää voivan hyvin"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Näyttää voivan hyvin. Perkele."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 1.0f && i >= 0.5f:
-                        sb.AppendLine("Näyttäisi siltä että hän olisi vähän väsynyt"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Mörkö alkaa selkeästi väsyä."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 0.5f && i > 0.0f:
-                        sb.AppendLine("Hän pelkää sinua"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Hän on kuolemaisillaan!"); // jotain parempaa pitäisi keksiä ;D
                         break;
                 }
 
