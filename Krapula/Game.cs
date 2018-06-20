@@ -178,7 +178,7 @@ namespace Krapula
             }
             else
             {
-                return "Not a valid direction";
+                return "Et voi liikkua tähän suuntan";
             }
         }
         public string Look(string item)
@@ -251,7 +251,7 @@ namespace Krapula
             Console.Clear();
             if (currentArea.NPC == null)
             {
-                return "nothing to hit";
+                return "Pyörähdät vinhasti, kuten torakka blenderissä, mutta lähistölläsi ei ole ketään";
             }
 
             int damage = rand.Next(player.WeaponEquipped.MaxDamage - player.WeaponEquipped.MinDamage);
@@ -272,11 +272,19 @@ namespace Krapula
                 }
                 player.Exp += currentArea.NPC.Exp;
                 player.Gold += currentArea.NPC.Gold;
+            player.WeaponEquipped.Durability -= 1;
+            if (player.WeaponEquipped.Durability == 0)
+            {
+
+                Console.WriteLine("Kiivaan mattopainin tuoksinnassa {0} hajosi! Tarvitset kiperästi jotain uutta kättä pitempää!", player.WeaponEquipped.Name);
+                player.WeaponEquipped = null;
+            }
+                string npcDeadText = String.Format("Flegmaattinen hyökkäyksesi osuu kuin parkinsonintautia kärsivän kirurgin veitsi ja {0} putoaa maahan elottoman näköisenä.", currentArea.NPC.Name);
                 currentArea.NPC = null;
-                return "he ded and dropped his items";
+                return npcDeadText;
             }
             IsPlayerTurn = false;
-            return "you hit the mörkö for " + damage + " damage";
+            return String.Format("Ketterästi pyörähtäen silpaiset ja {0} ottaa " + damage + " pistettä vahinkoa", currentArea.NPC.Name);
 
         }
         public string Defend(string ok)
@@ -315,12 +323,13 @@ namespace Krapula
             if (match != null)
             {
                 player.Inventory.Add(match);
+                string pickUpItem = String.Format("Nostat maasta jotain kimaltavaa. Kädessäsi on {0}. Sujautat sen takataskuusi.", match.Name);
                 currentArea.Items.Remove(match);
-                return "you pick up the item";
+                return pickUpItem;
             }
             else
             {
-                return "there is no item like that";
+                return "Lähistölläsi ei ole kyseistä tavaraa.";
             }
         }
 
@@ -335,7 +344,7 @@ namespace Krapula
 
                 IsPlayerTurn = false;
 
-                return "you equipped the weapon";
+                return String.Format("Kädessäsi on {0} ja olet valmiina taistoon!", player.WeaponEquipped.Name);
             }
 
             else if (match?.GetType() == typeof(Armor))
@@ -346,11 +355,11 @@ namespace Krapula
 
                 IsPlayerTurn = false;
 
-                return "you equipped the armor";
+                return String.Format("Nyt päälläsi säkenöi uudenkarhea {0}. Mahtavaa!", player.ClothesEquipped.Name);
             }
             else
             {
-                return "That doesn't make any sense";
+                return "Tuossahan ei ole mitään järkeä!";
             }
         }
 
