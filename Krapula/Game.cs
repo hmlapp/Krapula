@@ -100,7 +100,18 @@ namespace Krapula
                         }
                         else
                         {
-                            Console.WriteLine(CommandList[cmd[0]](cmd[1]));
+                            //Console.WriteLine(CommandList[cmd[0]](cmd[1])) ;
+                            StringBuilder itemFullName = new StringBuilder();
+                            for (int i = 1; i < cmd.Length; i++)
+                            {
+                                
+                                itemFullName.Append(cmd[i]);
+                                if (i < cmd.Length-1)
+                                {
+                                    itemFullName.Append(" ");
+                                }
+                            }
+                            Console.WriteLine(CommandList[cmd[0]](itemFullName.ToString()));
                         }
                         break;
                 }
