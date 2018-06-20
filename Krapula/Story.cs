@@ -42,10 +42,12 @@ namespace Krapula
         }
         public static void Ending(Player player, Armor armor) 
         {
+            
             Console.WriteLine("Paha mörkö voitti sinut..snif.");
+            Console.WriteLine();
             Console.WriteLine("Olit suuri ja mahtava " + Utilities.NameGenerator("adjectives", "professions").ToLower()+ " " + player.Name);
             System.Threading.Thread.Sleep(3000);
-
+            Console.WriteLine();
             Console.WriteLine("Mutta ei hätää. Seikkailit tyylikkäillä vaatteilla, taistelit parhaasi mukaan ja sait pelistäsi tyylipisteitä: "+player.ClothesEquipped.Style);
             if (player.WeaponEquipped == null)
             {
@@ -101,19 +103,20 @@ namespace Krapula
 
             Console.WriteLine("Haluatko pelata uudelleen? (Kyllä/Ei)");
             string vastaus = Console.ReadLine().ToLower();
+            Loppu:
             switch (vastaus)
             {
                 case string s when (vastaus == "kyllä" || vastaus == "yes" || vastaus == "k"):
-                    Console.WriteLine("Valitse Ei!");                
+                    Console.WriteLine("Valitse Ei!");                  
                     break;
                 case string s when (vastaus == "ei" || vastaus == "no" || vastaus == "e"):
                     Console.WriteLine("Fiksu päätös.");
                     break;
                 default:
                     Console.WriteLine("Anna kunnollinen vastaus");
-                    break;
+                    goto Loppu;
+                    
             }
-
         }
     }
 }
