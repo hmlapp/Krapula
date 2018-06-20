@@ -147,7 +147,7 @@ namespace Krapula
             if (currentArea.NPC != null)
             {
                 IsPlayerTurn = false;
-                return $"{Utilities.FirstCharToUpper(currentArea.NPC.Name)} ottaa sinut kiinni, ja hyökkää";
+                return $"{Utilities.FirstCharToUpper(currentArea.NPC.Name)} ottaa sinut kiinni ja hyökkää";
             }
             // Go to new area
             if (currentArea.Direction.ContainsKey(direction))
@@ -183,7 +183,7 @@ namespace Krapula
             }
             else
             {
-                return "Et voi liikkua tähän suuntan";
+                return "Et voi liikkua tähän suuntaan";
             }
         }
         public string Look(string item)
@@ -226,13 +226,13 @@ namespace Krapula
                 switch ((float)currentArea.NPC.Health / (float)currentArea.NPC.MaxHealth)
                 {
                     case 1:
-                        sb.AppendLine("Näyttää voivan hyvin. Perkele."); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Mörkö näyttää voivan hyvin. Perkele."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 1.0f && i >= 0.5f:
                         sb.AppendLine("Mörkö alkaa selkeästi väsyä."); // jotain parempaa pitäisi keksiä ;D
                         break;
                     case float i when i < 0.5f && i > 0.0f:
-                        sb.AppendLine("Hän on kuolemaisillaan!"); // jotain parempaa pitäisi keksiä ;D
+                        sb.AppendLine("Pahis on kuolemaisillaan!"); // jotain parempaa pitäisi keksiä ;D
                         break;
                 }
 
@@ -263,7 +263,7 @@ namespace Krapula
             if (player.WeaponEquipped.Durability == 0)
             {
                 string weaponBrokenText = String.Format("Kädessäsi oleva {0} on äärimmilleen ruhjoutunut, jonka takia hyökkäyksesi epäonnistuu kriittisesti." +
-                    " Otat 1 pisteen vahinkoa, kun kädessäsi oleva {0} räjähtää tuhannen päreiksi.", player.WeaponEquipped.Name);
+                    " Otat 1 pisteen vahinkoa, kun kädessäsi oleva {0} räjähtää tuhannen %&#!#? päreiksi.", player.WeaponEquipped.Name);
                 player.Health -= 1;
                 player.WeaponEquipped = null;
                 IsPlayerTurn = false;
@@ -319,7 +319,7 @@ namespace Krapula
 
                 if (rand.Next() % 3 == 0)
                 {
-                    sb.AppendLine($"Pakenessasi {currentArea.NPC.Name} hyökkäsi!");
+                    sb.AppendLine($"Paetessasi {currentArea.NPC.Name} hyökkäsi!");
                     sb.AppendLine(currentArea.NPC.Attack(player));
                 }
 
@@ -342,7 +342,7 @@ namespace Krapula
                 {
                     player.Inventory.Add(item);
                 }
-                return "Näet kasapain helyjä. Rohmuat kaiken sylisii ja sullot ne takataskuihisi";
+                return "Näet kasapain helyjä. Rohmuat kaiken syliisi ja sullot ne takataskuihisi";
             }
             Item match = currentArea.Items.Where(item => item.Name.ToLower() == name.ToLower()).FirstOrDefault();
             if (match != null)
@@ -411,7 +411,7 @@ namespace Krapula
             }
             else if (player.ClothesEquipped == null)
             {
-                Console.WriteLine("Katsot itseäsi ja huomaat olevasi täysin alasti. Laita nyt jotain rihman kiertämää yllesi!");
+                Console.WriteLine("Katsot itseäsi ja huomaat olevasi täysin alasti. Laita nyt edes jotain yllesi!");
             }
             if (player.Inventory.Count() == 0)
             {
@@ -481,10 +481,10 @@ namespace Krapula
             switch ((float)player.Health / (float)player.MaxHealth)
             {
                 case 1:
-                    sb.AppendLine("Tuntuu siltä et voisit vaikka valloittaa maailmaa"); // jotain parempaa pitäisi keksiä ;D
+                    sb.AppendLine("Tuntuu siltä et voisit vaikka valloittaa koko maailman!"); // jotain parempaa pitäisi keksiä ;D
                     break;
                 case float i when i < 1.0f && i >= 0.5f:
-                    sb.AppendLine("Ruoka maistui ja tunnet energiasi palautuvan"); // jotain parempaa pitäisi keksiä ;D
+                    sb.AppendLine("Ruoka maistui ja tunnet energiasi palautuvan."); // jotain parempaa pitäisi keksiä ;D
                     break;
                 case float i when i < 0.5f && i > 0.0f:
                     sb.AppendLine("Hirvee nälkä vielä..."); // jotain parempaa pitäisi keksiä ;D
