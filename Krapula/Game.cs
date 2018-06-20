@@ -206,10 +206,9 @@ namespace Krapula
 
         public string Inventory()
         {
-            List<Item> foods = new List<Item>();
-            List<Item> weapons = new List<Item>();
-            List<Item> clothes = new List<Item>();
-
+            List<Food> foods = new List<Food>();
+            List<Weapon> weapons = new List<Weapon>();
+            List<Armor> clothes = new List<Armor>();
 
             if (player.Inventory.Count() == 0)
             {
@@ -222,42 +221,38 @@ namespace Krapula
                 {
                     if (item.GetType() == (typeof(Food)))
                     {
-                        foods.Add(item);
+                        foods.Add((Food)item);
                     }
                     else if (item.GetType() == (typeof(Weapon)))
                     {
-                        weapons.Add(item);
+                        weapons.Add((Weapon)item);
                     }
                     else if (item.GetType() == (typeof(Armor)))
                     {
-                        clothes.Add(item);
+                        clothes.Add((Armor)item);
                     }
                 }
-
-
                 Console.WriteLine();
-                Console.WriteLine("Takataskussasi olevat ruoka-aineet:");
-                foreach (var item in foods)
+                Console.WriteLine("{0, -15} {1,15} {2, 15} {3, 15}", "Kledju:", "Vahingoensto:", "Arvo:", "Tyylipisteet:");
+                for (int i = 0; i < clothes.Count(); i++)
                 {
-                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                    Console.WriteLine("{0,-15} {1,15} {2, 15} {3, 15}", clothes[i].Name, clothes[i].DamageBlock, clothes[i].Value + "€", "2");
                 }
                 Console.WriteLine();
-                Console.WriteLine("Takataskussasi olevat aseet:");
-                foreach (var item in weapons)
+                Console.WriteLine("Takataskussasi olevat tavarat:");
+                Console.WriteLine("{0, -15} {1, 15} {2, 15}", "Ruoka:", "Energia:", "Arvo:");
+                for (int i = 0; i < foods.Count(); i++)
                 {
-                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                    Console.WriteLine("{0,-15} {1,15} {2, 15}", foods[i].Name, foods[i].Energy, foods[i].Value + "€");
                 }
                 Console.WriteLine();
-                Console.WriteLine("Takataskussasi olevat kledjut:");
-                foreach (var item in clothes)
+                Console.WriteLine("{0, -15} {1,15}", "Ase:", "Vahinko:");
+                for (int i = 0; i < weapons.Count(); i++)
                 {
-                    Console.WriteLine(item.Name + " Arvo: " + item.Value);
+                    Console.WriteLine("{0,-15} {1,15}", weapons[i].Name, weapons[i].Damage);
                 }
-
-
             }
-
-            return "jou";
+            return "Inventaario tehty";
         }
         public string Consume()
         {
