@@ -273,6 +273,7 @@ namespace Krapula
                 return "Pyörähdät vinhasti, kuten torakka blenderissä, mutta lähistölläsi ei ole ketään";
             }
 
+            string currentAreaNPCName = currentArea.NPC.Name;
             int damage = rand.Next(player.WeaponEquipped.MaxDamage - player.WeaponEquipped.MinDamage);
             player.WeaponEquipped.Durability -= 1;
             damage += player.WeaponEquipped.MinDamage;
@@ -284,6 +285,7 @@ namespace Krapula
             }
 
             currentArea.NPC.Health -= damage;
+            
             if (currentArea.NPC.Health <= 0)
             {
                 foreach (Item item in currentArea.NPC.Dead())
@@ -294,9 +296,10 @@ namespace Krapula
                 player.Gold += currentArea.NPC.Gold;
                 string npcDeadText = String.Format("Flegmaattinen hyökkäyksesi osuu kuin parkinsonintautia kärsivän kirurgin veitsi ja {0} putoaa maahan elottoman näköisenä.", currentArea.NPC.Name);
                 currentArea.NPC = null;
+                return npcDeadText;
             }
             IsPlayerTurn = false;
-            string attackText = String.Format("Ketterästi pyörähtäen silpaiset ja {0} ottaa " + damage + " pistettä vahinkoa", currentArea.NPC.Name);
+            string attackText = String.Format("Ketterästi pyörähtäen silpaiset ja {0} ottaa " + damage + " pistettä vahinkoa", currentAreaNPCName);
             return attackText;
 
         }
