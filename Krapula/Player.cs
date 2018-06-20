@@ -9,17 +9,19 @@ namespace Krapula
     public class Player : Character
     {
         public List<Item> Inventory { get; set; }
+        public bool IsDefending { get; set; }
 
-        public Player(string name) : base(name)
+        public Player(string name) : base()
         {
             Inventory = new List<Item>() { new Weapon("Mora"), new Weapon("kola"), new Armor("mekko"), new Food("muikku", 2, 4) };
             Name = name;
             Gold = 0;
             Health = 20;
             MaxHealth = 20;
-            WeaponEquipped = new Weapon("Moottorisaha");
-            ClothesEquipped = new Armor("H&M Pillihuosut");
+            WeaponEquipped = new Weapon();
+            ClothesEquipped = new Armor();
             Exp = 0;
+            IsDefending = false;
         }
     }
 }

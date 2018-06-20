@@ -16,16 +16,16 @@ namespace Krapula
         public Armor ClothesEquipped { get; set; }
         public int Exp { get; set; }
 
-        public Character(string name)
+        public Character()
         {
             Random rand = new Random(DateTime.Now.Millisecond);
-            Name = name;
-            Gold = rand.Next(0,100);
-            MaxHealth = rand.Next(0, 100);
+            Name = Utilities.NameGenerator("adjectives", "professions", "names");
+            Gold = rand.Next(100);
+            MaxHealth = rand.Next(30);
             Health = MaxHealth;
-            WeaponEquipped = new Weapon("Moi");
-            ClothesEquipped = new Armor("tere");
-            Exp = rand.Next(0, 100);
+            WeaponEquipped = new Weapon();
+            ClothesEquipped = new Armor();
+            Exp = rand.Next(100);
         }
     }
 }

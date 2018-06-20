@@ -19,7 +19,7 @@ namespace Krapula
         public string CharacterName { get; set; }
 
         // Current area NPC is a Character class
-        public NPC AreaNPC;
+        public NPC NPC;
         // New surrounding areas
         public List<Area> SurroundingAreas;
         public List<Item> Items;
@@ -38,10 +38,7 @@ namespace Krapula
             // Use area creator method to initialize surrounding areas
             SurroundingAreas = new List<Area>();
             Name = Utilities.NameGenerator("places", "locations");
-            CharacterName = Utilities.NameGenerator("adjectives", "professions", "names");
-            AreaNPC = new NPC(CharacterName, 20, 10, new Weapon("Smurffi"), new Armor("Nahkatakki"), 20, true);
-            //Console.WriteLine("Area: " + Name);
-            //Console.WriteLine("Char: " + CharacterName);
+            NPC = new NPC();
         }
 
         public void SetArea()
