@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -108,16 +109,13 @@ namespace Krapula
             Console.WriteLine("Tyyli- ja tappopisteet yhteensä: " + styyli);
             Console.WriteLine();
 
-            HttpClient client = new HttpClient();
+            string url = $"score={styyli.ToString()}&name={name}&weapon={player.WeaponEquipped.Name}&clothes={player.ClothesEquipped.Name}";
 
-            var data = new Dictionary<string, string>
-            {
-                { "score", styyli.ToString() }, { "name", name }, { "privatekey", "imeanthisisveryprivate" }
-            };
-
-            var content = new FormUrlEncodedContent(data);
-
-            var response = client.PostAsync("http://stuk.is/", content);
+            var client = new RestClient("http://localhost:3000?" + url);
+            var request = new RestRequest(Method.POST);
+            //request.AddHeader("Postman-Token", "a3c8870a-8a2d-4090-9059-bb31c2b60bcf");
+            request.AddHeader("Cache-Control", "no-cache");
+            IRestResponse response = client.Execute(request);
 
             System.Threading.Thread.Sleep(3000);
 
