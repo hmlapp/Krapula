@@ -81,7 +81,6 @@ namespace Krapula
                 }
 
                 string readline = Utilities.ReadLine().ToLower();
-                Console.WriteLine();
                 string[] cmd = readline.Split(' ');
                 switch (cmd.Length)
                 {
