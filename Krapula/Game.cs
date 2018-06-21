@@ -487,6 +487,10 @@ namespace Krapula
         }
         public string Consume(string item)
         {
+            if (item.Equals(" "))
+            {
+                return "Otat mojovan haukun, mutta huomaat, ettei kädessäsi ole mitään nautittavaa";
+            }
             StringBuilder sb = new StringBuilder();
             Food match = (Food)player.Inventory.Where(i => i.Name == item).FirstOrDefault();
 

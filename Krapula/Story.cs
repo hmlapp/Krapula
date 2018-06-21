@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Krapula
 {//Nina ja Riku
@@ -109,9 +110,10 @@ namespace Krapula
             Console.WriteLine("Tyyli- ja tappopisteet yhteensä: " + styyli);
             Console.WriteLine();
 
-            string url = $"score={styyli.ToString()}&name={name}&weapon={player.WeaponEquipped?.Name}&clothes={player.ClothesEquipped.Name}";
+            string param = $"?score={styyli.ToString()}&name={name}&weapon={player.WeaponEquipped?.Name}&clothes={player.ClothesEquipped.Name}";
 
-            var client = new RestClient("http://localhost:3000?" + url);
+            string url = ConfigurationManager.AppSettings["wspalveluurl"].ToString();
+            var client = new RestClient(url + param);
             var request = new RestRequest(Method.POST);
             //request.AddHeader("Postman-Token", "a3c8870a-8a2d-4090-9059-bb31c2b60bcf");
             request.AddHeader("Cache-Control", "no-cache");
