@@ -109,13 +109,21 @@ namespace Krapula
             Console.WriteLine("Tyyli- ja tappopisteet yhteensä: " + styyli);
             Console.WriteLine();
 
-            string url = $"score={styyli.ToString()}&name={name}&weapon={player.WeaponEquipped.Name}&clothes={player.ClothesEquipped.Name}";
+            string url = $"score={styyli.ToString()}&name={name}&weapon={player.WeaponEquipped?.Name}&clothes={player.ClothesEquipped.Name}";
 
             var client = new RestClient("http://localhost:3000?" + url);
             var request = new RestRequest(Method.POST);
             //request.AddHeader("Postman-Token", "a3c8870a-8a2d-4090-9059-bb31c2b60bcf");
             request.AddHeader("Cache-Control", "no-cache");
-            IRestResponse response = client.Execute(request);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
 
             System.Threading.Thread.Sleep(3000);
 
