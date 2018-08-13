@@ -22,6 +22,8 @@ namespace Krapula
                     System.Threading.Thread.Sleep(3000);
                     Console.WriteLine("Kotiin kai pitäisi päästä, joten... ei kun ulos.");
                     System.Threading.Thread.Sleep(3000);
+                    Console.WriteLine("On aamu ja aurinko paistaa.");
+                    System.Threading.Thread.Sleep(3000);
                     break;
 
                 case 2:
@@ -31,6 +33,8 @@ namespace Krapula
                     System.Threading.Thread.Sleep(3000);
                     Console.WriteLine("Oksennat näppäimistölle ja päätät lähteä raahautumaan kotia kohti.");
                     System.Threading.Thread.Sleep(3000);
+                    Console.WriteLine("Ulkona sataa kaatamalla.");
+                    System.Threading.Thread.Sleep(3000);
                     break;
 
                 case 3:
@@ -39,6 +43,8 @@ namespace Krapula
                     Console.WriteLine("Uhhhh... pääsi tuntuu räjähtävän ja näytät kamalalta.. Tätä krapula pahimmillaan on.");
                     System.Threading.Thread.Sleep(3000);
                     Console.WriteLine("Onneksi ei ole koulupäivä. Kotona olisi tasoittava olut, lähdet sitä kohti..");
+                    System.Threading.Thread.Sleep(3000);
+                    Console.WriteLine("Eksyt kantakaupunkiin.");
                     System.Threading.Thread.Sleep(3000);
                     break;
 
